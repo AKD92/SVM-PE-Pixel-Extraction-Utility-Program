@@ -50,7 +50,7 @@ unsigned char util_pack8ByteLSBfirst(unsigned char *pByteArray, unsigned int sta
 // GUI Callback function prototypes
 int cb_btnOpen(Ihandle *ih);
 int cb_btnExtract(Ihandle *ih);
-int cb_btnFlip(Ihandle *ih);
+int cb_btnInvert(Ihandle *ih);
 int cb_btnStoreBinaryPixelArray(Ihandle *ih);
 int cb_btnStoreRasterBitImage(Ihandle *ih);
 int cb_btnEraseData(Ihandle *ih);
@@ -115,10 +115,10 @@ int cb_btnExtract(Ihandle *ih) {
     char *pStrFile;
     FILE *fpBitmap;
     Ihandle *dlgMsg;
-    struct DibHeader dibHeader;                             // we store image information here
+    struct DibHeader dibHeader;                             // we store image information in DibHeader
     unsigned char bmpSignature[2];                          // 2 byte file signature
     unsigned char bmpHeader[BMP_HEADER_SIZE];               // 14 byte file header
-    unsigned char colPallette[COLOR_PALLETTE_SIZE];         // 8 byte color pallette
+    unsigned char colPallette[BMP_COLOR_PALLETTE_SIZE];     // 8 byte color pallette
     unsigned char *pImageData;                              // arbitrary length raw image data with padding
     
     fpBitmap = 0;
@@ -209,7 +209,7 @@ int cb_btnExtract(Ihandle *ih) {
     pPixelArray = (unsigned char *) malloc(pHeader->imgWidth * pHeader->imgHeight);
     
     // Read color pallette data & pixel data from bitmap file
-    fread((void *) colPallette, 1, COLOR_PALLETTE_SIZE, fpBitmap);
+    fread((void *) colPallette, 1, BMP_COLOR_PALLETTE_SIZE, fpBitmap);
     fread((void *) pImageData, 1, pHeader->imageDataLen, fpBitmap);
     
     
@@ -240,7 +240,7 @@ int cb_btnExtract(Ihandle *ih) {
 
 
 
-int cb_btnFlip(Ihandle *ih) {
+int cb_btnInvert(Ihandle *ih) {
     
     int width;
     int row_a, row_b;
@@ -282,16 +282,19 @@ int cb_btnFlip(Ihandle *ih) {
 
 int cb_btnEraseData(Ihandle *ih) {
     
+    char *atrTitle;
+    
     free((void *) pHeader);
     free((void *) pPixelArray);
     pHeader = 0;
     pPixelArray = 0;
+    atrTitle = "TITLE";
     
-    IupSetAttribute(lblWidth, "TITLE", 0);
-    IupSetAttribute(lblHeight, "TITLE", 0);
-    IupSetAttribute(lblBpp, "TITLE", 0);
-    IupSetAttribute(lblColor, "TITLE", 0);
-    IupSetAttribute(lblCompression, "TITLE", 0);
+    IupSetAttribute(lblWidth, atrTitle, 0);
+    IupSetAttribute(lblHeight, atrTitle, 0);
+    IupSetAttribute(lblBpp, atrTitle, 0);
+    IupSetAttribute(lblColor, atrTitle, 0);
+    IupSetAttribute(lblCompression, atrTitle, 0);
     
     IupRefresh(ih);
     IupUpdate(canvas);
@@ -350,6 +353,7 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
         IupDestroy(dlgMsg);
         goto END;
     }
+    
     
     // Write each pixel value as a byte into output file one by one
     // Each Pixel = 8 bit value (1 byte)
@@ -433,6 +437,7 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
         IupDestroy(dlgMsg);
         goto END;
     }
+    
     
     // Pack LSBs from each consecutive 8 bytes into a single packed byte
     // Write each packed byte to the output file ONE BY ONE

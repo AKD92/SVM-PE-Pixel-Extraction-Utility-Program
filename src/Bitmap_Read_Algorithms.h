@@ -27,8 +27,8 @@
 
 #define BMX1                            'B'
 #define BMX2                            'M'
-#define BMP_HEADER_SIZE                 14
-#define COLOR_PALLETTE_SIZE             8
+#define BMP_HEADER_SIZE                  14
+#define BMP_COLOR_PALLETTE_SIZE          8
 
 
 

@@ -25,6 +25,8 @@
 
 
 
+// Function prototypes of auxiliary helper operations
+
 uint32_t bitmap_LittleEndToINT32(unsigned char *pByteArray);
 
 uint16_t bitmap_LittleEndToINT16(unsigned char *pByteArray);

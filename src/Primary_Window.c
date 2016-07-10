@@ -25,9 +25,9 @@
 
 
 
-#define ID_CD_SCREEN            "cd_canvas"
-#define ID_CD_DBUF              "cd_doubleBufferedCanvas"
-#define ID_DLGMAIN              "dlgMAIN"
+#define ID_CD_SCREEN            "cd_canvas"                         // On-Screen Canvas
+#define ID_CD_DBUF              "cd_doubleBufferedCanvas"           // Off-Screen (Double Buffered) Canvas
+#define ID_DLGMAIN              "dlgMAIN"                           // Primary Dialog Window
 
 
 
@@ -36,7 +36,7 @@
 Ihandle *txtOpen, *btnOpen;
 Ihandle *canvas;
 Ihandle *btnStoreRBI;
-Ihandle *btnExtract, *btnFlip, *btnStore;
+Ihandle *btnExtract, *btnInvert, *btnStore;
 Ihandle *btnEraseData;
 Ihandle *lblWidth, *lblHeight, *lblBpp, *lblColor;
 Ihandle *lblCompression;
@@ -55,15 +55,15 @@ Ihandle * createMainDialog(void);
 
 int cb_btnOpen(Ihandle *ih);
 int cb_btnExtract(Ihandle *ih);
-int cb_btnFlip(Ihandle *ih);
+int cb_btnInvert(Ihandle *ih);
 int cb_btnStoreBinaryPixelArray(Ihandle *ih);
 int cb_btnStoreRasterBitImage(Ihandle *ih);
 int cb_btnEraseData(Ihandle *ih);
 
-int cv_map(Ihandle *ih);
-int cv_unmap(Ihandle *ih);
-int cv_resize(Ihandle *ih);
-int cv_draw(Ihandle *ih, float posx, float posy);
+int cv_map(Ihandle *ih);                                    // Creation of internal cdCanvas
+int cv_unmap(Ihandle *ih);                                  // Destruction of internal cdCanvas
+int cv_resize(Ihandle *ih);                                 // Resize internal cdCanvas
+int cv_draw(Ihandle *ih, float posx, float posy);           // Drawing on internal cdCanvas
 
 
 
@@ -98,9 +98,9 @@ Ihandle *createMainDialog(void) {
     IupSetAttribute(btnExtract, "RASTERSIZE", "180x35");
     IupSetCallback(btnExtract, "ACTION", (Icallback) cb_btnExtract);
     
-    btnFlip = IupButton("Invert Pixel Array", 0);
-    IupSetAttribute(btnFlip, "RASTERSIZE", "180x35");
-    IupSetCallback(btnFlip, "ACTION", (Icallback) cb_btnFlip);
+    btnInvert = IupButton("Invert Pixel Array", 0);
+    IupSetAttribute(btnInvert, "RASTERSIZE", "180x35");
+    IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvert);
     
     btnStore = IupButton("Store As\nBinary Pixel Array", 0);
     IupSetAttribute(btnStore, "RASTERSIZE", "180x40");
@@ -151,7 +151,7 @@ Ihandle *createMainDialog(void) {
     boxControls = IupVbox(boxlbl3,
                             IupFill(),
                             btnExtract,
-                            btnFlip,
+                            btnInvert,
                             btnStore,
                             btnStoreRBI,
                             btnEraseData, 0);
