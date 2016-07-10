@@ -1,0 +1,45 @@
+# Project: SVM Monochrome Bitmap Pixel Extractor (Win32)
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = obj/SVM_Monochrome_Bitmap_Pixel_Extractor_(Win32)_private.res
+OBJ      = obj/Primary_Window.o obj/Pixel_Operations.o obj/SVM_PE_Utilites.o obj/SVM_PE_Driver.o obj/Bitmap_Read_Algorithms.o $(RES)
+LINKOBJ  = obj/Primary_Window.o obj/Pixel_Operations.o obj/SVM_PE_Utilites.o obj/SVM_PE_Driver.o obj/Bitmap_Read_Algorithms.o $(RES)
+LIBS     = -L"C:/Dev-Cpp/MinGW32/lib" -L"C:/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -L"lib/iup-3.17_Win32_mingw4_lib" -L"lib/cd-5.9_Win32_mingw4_lib" -mwindows -liup -lgdi32 -lcomdlg32 -lcomctl32 -luuid -loleaut32 -lole32 -liupcd -lcd -lfreetype6 -lz -s
+INCS     = -I"C:/Dev-Cpp/MinGW32/include" -I"C:/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"lib/iup-3.17_Win32_mingw4_lib/include" -I"lib/cd-5.9_Win32_mingw4_lib/include"
+CXXINCS  = -I"C:/Dev-Cpp/MinGW32/include" -I"C:/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include/c++" -I"lib/iup-3.17_Win32_mingw4_lib/include" -I"lib/cd-5.9_Win32_mingw4_lib/include"
+BIN      = bin/SVM_PE_Utility.exe
+CXXFLAGS = $(CXXINCS) -ansi -std=c99 -Wall
+CFLAGS   = $(INCS) -ansi -std=c99 -Wall
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+obj/Primary_Window.o: src/Primary_Window.c
+	$(CC) -c src/Primary_Window.c -o obj/Primary_Window.o $(CFLAGS)
+
+obj/Pixel_Operations.o: src/Pixel_Operations.c
+	$(CC) -c src/Pixel_Operations.c -o obj/Pixel_Operations.o $(CFLAGS)
+
+obj/SVM_PE_Utilites.o: src/SVM_PE_Utilites.c
+	$(CC) -c src/SVM_PE_Utilites.c -o obj/SVM_PE_Utilites.o $(CFLAGS)
+
+obj/SVM_PE_Driver.o: src/SVM_PE_Driver.c
+	$(CC) -c src/SVM_PE_Driver.c -o obj/SVM_PE_Driver.o $(CFLAGS)
+
+obj/Bitmap_Read_Algorithms.o: src/Bitmap_Read_Algorithms.c
+	$(CC) -c src/Bitmap_Read_Algorithms.c -o obj/Bitmap_Read_Algorithms.o $(CFLAGS)
+
+obj/SVM_Monochrome_Bitmap_Pixel_Extractor_(Win32)_private.res: SVM_Monochrome_Bitmap_Pixel_Extractor_(Win32)_private.rc 
+	$(WINDRES) -i SVM_Monochrome_Bitmap_Pixel_Extractor_(Win32)_private.rc --input-format=rc -o obj/SVM_Monochrome_Bitmap_Pixel_Extractor_(Win32)_private.res -O coff 
+
