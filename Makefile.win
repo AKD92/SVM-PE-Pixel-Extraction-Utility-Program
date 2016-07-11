@@ -10,7 +10,7 @@ LINKOBJ  = obj/Primary_Window.o obj/Pixel_Operations.o obj/SVM_PE_Utilites.o obj
 LIBS     = -L"C:/Dev-Cpp/MinGW32/lib" -L"C:/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -L"lib/iup-3.17_Win32_mingw4_lib" -L"lib/cd-5.9_Win32_mingw4_lib" -mwindows -liup -lgdi32 -lcomdlg32 -lcomctl32 -luuid -loleaut32 -lole32 -liupcd -lcd -lfreetype6 -lz -s
 INCS     = -I"C:/Dev-Cpp/MinGW32/include" -I"C:/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"lib/iup-3.17_Win32_mingw4_lib/include" -I"lib/cd-5.9_Win32_mingw4_lib/include"
 CXXINCS  = -I"C:/Dev-Cpp/MinGW32/include" -I"C:/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include/c++" -I"lib/iup-3.17_Win32_mingw4_lib/include" -I"lib/cd-5.9_Win32_mingw4_lib/include"
-BIN      = bin/SVM_PE_Utility.exe
+BIN      = bin/SVM_PE_Utility.EXE
 CXXFLAGS = $(CXXINCS) -ansi -std=c99 -Wall
 CFLAGS   = $(INCS) -ansi -std=c99 -Wall
 RM       = rm.exe -f
