@@ -43,7 +43,7 @@ struct DibHeader {                              // Standard Data Structure for s
     int bitsPerPixel;                           // Number of bits used to represent each pixel
     uint64_t colorCount;                        // Number of total colors in the color pallette
     int compression;                            // Is RLE compression applied or not (0 for none)
-    
+    unsigned char padBitPerRow;
 };
 
 

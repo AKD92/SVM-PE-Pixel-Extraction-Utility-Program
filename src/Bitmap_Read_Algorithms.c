@@ -65,6 +65,9 @@ void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader)
     pDibHeader->compression =       (int)       bitmap_LittleEndToINT32(pDibData + 12);
     pDibHeader->imageDataLen =      (int)       bitmap_LittleEndToINT32(pDibData + 16);
     pDibHeader->colorCount =        (uint64_t)  bitmap_LittleEndToINT32(pDibData + 28);
+    pDibHeader->padBitPerRow = 
+            (unsigned char) ((((pDibHeader->bitsPerPixel * pDibHeader->imgWidth + 31) / 32) * 4 * 8)
+                                    - pDibHeader->imgWidth * pDibHeader->bitsPerPixel);
     
     if (pDibHeader->colorCount == 0) {
         pDibHeader->colorCount = (uint64_t) pow(2.0, (double) pDibHeader->bitsPerPixel);
@@ -72,6 +75,7 @@ void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader)
     if (pDibHeader->imgHeight < 0) {
         pDibHeader->imgHeight = (-1) * pDibHeader->imgHeight;
     }
+    // pDibHeader->padBitPerRow =  (unsigned char) ((pDibHeader->imageDataLen / pDibHeader->imgHeight) / 4);
     
     free((void *) pDibData);
     return;
@@ -145,15 +149,15 @@ unsigned char bitmap_readPixelValue(const unsigned char *pImageData, int scanLin
     // The bits representing the bitmap pixels are packed in rows
     // The size of each row is rounded up to a multiple of 4 bytes (a 32-bit DWORD) by padding
     
-    int arrayIndex;
-    unsigned char cByteValue;
+    int byteIndex;
+    unsigned char cByteChunk;
     unsigned char cPixelMask;
     unsigned char cPixelValue;
     
-    arrayIndex = (scanLineSize * row) + (col / 8);
-    cByteValue = *(pImageData + arrayIndex);
-    cPixelMask = 0x01 << (7 - (col % 8));
-    cPixelValue = !!(cByteValue & cPixelMask);
+    byteIndex = (scanLineSize * row) + (col / 8);
+    cByteChunk = *(pImageData + byteIndex);
+    cPixelMask = 0x80 >> (col % 8);
+    cPixelValue = (cByteChunk & cPixelMask) == 0 ? 0x00 : 0x01;
     
     return cPixelValue;
 }

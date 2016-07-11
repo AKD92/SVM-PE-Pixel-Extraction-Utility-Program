@@ -39,7 +39,7 @@ Ihandle *btnStoreRBI;
 Ihandle *btnExtract, *btnInvert, *btnStore;
 Ihandle *btnEraseData;
 Ihandle *lblWidth, *lblHeight, *lblBpp, *lblColor;
-Ihandle *lblCompression;
+Ihandle *lblCompression, *lblPadByteCount;
 
 
 struct DibHeader *pHeader;
@@ -75,7 +75,7 @@ Ihandle *createMainDialog(void) {
     Ihandle *boxOpen, *boxLowerside, *boxWhole;
     Ihandle *frmPreview, *boxPreview;
     Ihandle *frmControls, *boxControls;
-    Ihandle *lbl1, *lbl2, *lbl3, *lbl4, *lbl5;
+    Ihandle *lbl1, *lbl2, *lbl3, *lbl4, *lbl5, *lbl6;
     Ihandle *boxlbl1, *boxlbl2, *boxlbl3;
     
     txtOpen = IupText(0);
@@ -119,6 +119,7 @@ Ihandle *createMainDialog(void) {
     lbl3 = IupLabel("Bit Depth :");
     lbl4 = IupLabel("Compression :");
     lbl5 = IupLabel("Palette Colors :");
+    lbl6 = IupLabel("Row Padding :");
     
     lblWidth = IupLabel(0);
 //  IupSetAttribute(lblWidth, "ALIGNMENT", "ACENTER:ACENTER");
@@ -129,9 +130,10 @@ Ihandle *createMainDialog(void) {
     lblColor = IupLabel(0);
 //  IupSetAttribute(lblColor, "ALIGNMENT", "ACENTER:ACENTER");
     lblCompression = IupLabel(0);
+    lblPadByteCount = IupLabel(0);
     
-    boxlbl1 = IupVbox(lbl1, lbl2, lbl3, lbl4, lbl5, 0);
-    IupSetAttribute(boxlbl1, "NGAP", "5");
+    boxlbl1 = IupVbox(lbl1, lbl2, lbl3, lbl4, lbl5, lbl6, 0);
+    IupSetAttribute(boxlbl1, "NGAP", "3");
     IupSetAttribute(boxlbl1, "NMARGIN", "0x0");
     IupSetAttribute(boxlbl1, "EXPAND", "VERTICAL");
     
@@ -139,8 +141,9 @@ Ihandle *createMainDialog(void) {
                         lblHeight,
                         lblBpp,
                         lblCompression,
-                        lblColor, 0);
-    IupSetAttribute(boxlbl2, "NGAP", "5");
+                        lblColor,
+                        lblPadByteCount, 0);
+    IupSetAttribute(boxlbl2, "NGAP", "3");
     IupSetAttribute(boxlbl2, "NMARGIN", "0x0");
     
     boxlbl3 = IupHbox(boxlbl1, boxlbl2, 0);

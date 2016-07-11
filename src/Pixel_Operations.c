@@ -38,6 +38,7 @@ extern Ihandle *txtOpen;
 extern Ihandle *canvas;
 extern Ihandle *lblWidth, *lblHeight;
 extern Ihandle *lblBpp, *lblColor, *lblCompression;
+extern Ihandle *lblPadByteCount;
 
 
 
@@ -64,6 +65,7 @@ static const char *frmt1 = "%d pixels";
 static const char *frmt2 = "%d bpp";
 static const char *frmt3 = "%" PRIu64;
 static const char *frmt4 = "%d (RLE)";
+static const char *frmt5 = "%u bits";
 static const char *strHeaderError
             = "This is not an image file at all";
 static const char *strOpenFilter
@@ -169,10 +171,11 @@ int cb_btnExtract(Ihandle *ih) {
     memcpy((void *) pHeader, (const void *) &dibHeader, sizeof(struct DibHeader));
     
     // Update GUI objects to reflect new header information
-    IupSetfAttribute(lblWidth,  atrTitle, frmt1, pHeader->imgWidth);
-    IupSetfAttribute(lblHeight, atrTitle, frmt1, pHeader->imgHeight);
-    IupSetfAttribute(lblBpp,    atrTitle, frmt2, pHeader->bitsPerPixel);
-    IupSetfAttribute(lblColor,  atrTitle, frmt3, pHeader->colorCount);
+    IupSetfAttribute(lblWidth,              atrTitle,   frmt1, pHeader->imgWidth);
+    IupSetfAttribute(lblHeight,             atrTitle,   frmt1, pHeader->imgHeight);
+    IupSetfAttribute(lblBpp,                atrTitle,   frmt2, pHeader->bitsPerPixel);
+    IupSetfAttribute(lblColor,              atrTitle,   frmt3, pHeader->colorCount);
+    IupSetfAttribute(lblPadByteCount,       atrTitle,   frmt5, pHeader->padBitPerRow);
     
     if (pHeader->compression == 0) {
         IupSetAttribute(lblCompression, atrTitle, "0 (None)");
@@ -224,6 +227,7 @@ int cb_btnExtract(Ihandle *ih) {
     IupRedraw(lblBpp, 0);
     IupRedraw(lblColor, 0);
     IupRedraw(lblCompression, 0);
+    IupRedraw(lblPadByteCount, 0);
     IupUpdate(canvas);
     
     END:
@@ -289,6 +293,7 @@ int cb_btnEraseData(Ihandle *ih) {
     IupSetAttribute(lblBpp, atrTitle, 0);
     IupSetAttribute(lblColor, atrTitle, 0);
     IupSetAttribute(lblCompression, atrTitle, 0);
+    IupSetAttribute(lblPadByteCount, atrTitle, 0);
     
     IupRefresh(ih);
     IupUpdate(canvas);
