@@ -95,30 +95,30 @@ Ihandle *createMainDialog(void) {
     IupSetAttribute(boxOpen, "NMARGIN", "0x0");
     
     btnExtract = IupButton("Extract Pixel Array", 0);
-    IupSetAttribute(btnExtract, "RASTERSIZE", "180x35");
+    IupSetAttribute(btnExtract, "RASTERSIZE", "190x35");
     IupSetCallback(btnExtract, "ACTION", (Icallback) cb_btnExtract);
     
     btnInvert = IupButton("Invert Pixel Array", 0);
-    IupSetAttribute(btnInvert, "RASTERSIZE", "180x35");
+    IupSetAttribute(btnInvert, "RASTERSIZE", "190x35");
     IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvert);
     
     btnStore = IupButton("Store As\nBinary Pixel Array", 0);
-    IupSetAttribute(btnStore, "RASTERSIZE", "180x40");
+    IupSetAttribute(btnStore, "RASTERSIZE", "190x42");
     IupSetCallback(btnStore, "ACTION", (Icallback) cb_btnStoreBinaryPixelArray);
     
-    btnStoreRBI = IupButton("Store As\nESC\\POS Raster Bit Image", 0);
-    IupSetAttribute(btnStoreRBI, "RASTERSIZE", "180x40");
+    btnStoreRBI = IupButton("Store As\nESC\\POS Single-Bit Raster", 0);
+    IupSetAttribute(btnStoreRBI, "RASTERSIZE", "190x42");
     IupSetCallback(btnStoreRBI, "ACTION", (Icallback) cb_btnStoreRasterBitImage);
     
     btnEraseData = IupButton("Erase Data Structures", 0);
-    IupSetAttribute(btnEraseData, "RASTERSIZE", "180x35");
+    IupSetAttribute(btnEraseData, "RASTERSIZE", "190x35");
     IupSetCallback(btnEraseData, "ACTION", (Icallback) cb_btnEraseData);
     
     lbl1 = IupLabel("Width :");
     lbl2 = IupLabel("Height :");
-    lbl3 = IupLabel("Bits Per Pixel :");
+    lbl3 = IupLabel("Bit Depth :");
     lbl4 = IupLabel("Compression :");
-    lbl5 = IupLabel("Pallette Count :");
+    lbl5 = IupLabel("Palette Colors :");
     
     lblWidth = IupLabel(0);
 //  IupSetAttribute(lblWidth, "ALIGNMENT", "ACENTER:ACENTER");

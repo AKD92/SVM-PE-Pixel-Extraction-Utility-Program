@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 #include "Bitmap_Read_Algorithms.h"
 
 
@@ -61,9 +62,8 @@ int cb_btnEraseData(Ihandle *ih);
 // String constants used in GUI Label objects
 static const char *frmt1 = "%d pixels";
 static const char *frmt2 = "%d bpp";
-static const char *frmt3 = "%d";
-static const char *frmt4 = "%d (None)";
-static const char *frmt5 = "%d (RLE)";
+static const char *frmt3 = "%" PRIu64;
+static const char *frmt4 = "%d (RLE)";
 static const char *strHeaderError
             = "This is not an image file at all";
 static const char *strOpenFilter
@@ -118,7 +118,7 @@ int cb_btnExtract(Ihandle *ih) {
     struct DibHeader dibHeader;                             // we store image information in DibHeader
     unsigned char bmpSignature[2];                          // 2 byte file signature
     unsigned char bmpHeader[BMP_HEADER_SIZE];               // 14 byte file header
-    unsigned char colPallette[BMP_COLOR_PALLETTE_SIZE];     // 8 byte color pallette
+    unsigned char colPalette[BMP_COLOR_PALETTE_SIZE];     // 8 byte color pallette
     unsigned char *pImageData;                              // arbitrary length raw image data with padding
     
     fpBitmap = 0;
@@ -172,19 +172,13 @@ int cb_btnExtract(Ihandle *ih) {
     IupSetfAttribute(lblWidth,  atrTitle, frmt1, pHeader->imgWidth);
     IupSetfAttribute(lblHeight, atrTitle, frmt1, pHeader->imgHeight);
     IupSetfAttribute(lblBpp,    atrTitle, frmt2, pHeader->bitsPerPixel);
-    
-    if (pHeader->colorCount != 0) {
-        IupSetfAttribute(lblColor, atrTitle, frmt3, pHeader->colorCount);
-    }
-    else {
-        IupSetfAttribute(lblColor, atrTitle, frmt4, pHeader->colorCount);
-    }
+    IupSetfAttribute(lblColor,  atrTitle, frmt3, pHeader->colorCount);
     
     if (pHeader->compression == 0) {
-        IupSetfAttribute(lblCompression, atrTitle, frmt4, pHeader->compression);
+        IupSetAttribute(lblCompression, atrTitle, "0 (None)");
     }
     else {
-        IupSetfAttribute(lblCompression, atrTitle, frmt5, pHeader->compression);
+        IupSetfAttribute(lblCompression, atrTitle, frmt4, pHeader->compression);
     }
     
     // If this image is not a Monochrome Bitmap (not 1bpp), show an error message
@@ -209,7 +203,7 @@ int cb_btnExtract(Ihandle *ih) {
     pPixelArray = (unsigned char *) malloc(pHeader->imgWidth * pHeader->imgHeight);
     
     // Read color pallette data & pixel data from bitmap file
-    fread((void *) colPallette, 1, BMP_COLOR_PALLETTE_SIZE, fpBitmap);
+    fread((void *) colPalette, 1, BMP_COLOR_PALETTE_SIZE, fpBitmap);
     fread((void *) pImageData, 1, pHeader->imageDataLen, fpBitmap);
     
     
@@ -377,7 +371,7 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
 
 int cb_btnStoreRasterBitImage(Ihandle *ih) {
     
-    FILE *fpRBI;
+    FILE *fpSBR;
     Ihandle *dlgFile, *dlgMsg;
     char *strFile, *dlgVal;
     unsigned int index;
@@ -386,7 +380,7 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
     int dlgStatus;
     
     dlgFile = 0;
-    fpRBI = 0;
+    fpSBR = 0;
     strFile = 0;
     packByte = 0x00;
     
@@ -409,9 +403,9 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
     IupSetAttribute(dlgFile, "DIALOGTYPE", "SAVE");
     IupSetAttribute(dlgFile, "MULTIPLEFILES", "NO");
     IupSetAttribute(dlgFile, "PARENTDIALOG", ID_DLGMAIN);
-    IupSetAttribute(dlgFile, "TITLE", "Store Bit Image");
-    IupSetAttribute(dlgFile, "FILTER", "*.RBI");
-    IupSetAttribute(dlgFile, "FILTERINFO", "ESC\\POS Raster Bit Image (*.RBI)");
+    IupSetAttribute(dlgFile, "TITLE", "Store Image");
+    IupSetAttribute(dlgFile, "FILTER", "*.SBR");
+    IupSetAttribute(dlgFile, "FILTERINFO", "ESC\\POS Single-Bit Raster (*.SBR)");
     IupPopup(dlgFile, IUP_CENTER, IUP_CENTER);
     
     dlgStatus = IupGetInt(dlgFile, "STATUS");
@@ -419,14 +413,14 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
         dlgVal = IupGetAttribute(dlgFile, "VALUE");
         strFile = (char *) malloc(strlen(dlgVal) + 1 + 5);
         strcpy(strFile, dlgVal);
-        util_addExtensionIfNeeded(strFile, "RBI");
+        util_addExtensionIfNeeded(strFile, "SBR");
     }
     else {
         goto END;
     }
     
-    fpRBI = fopen(strFile, "wb");                   // File mode must be binary write
-    if (fpRBI == 0) {
+    fpSBR = fopen(strFile, "wb");                   // File mode must be binary write
+    if (fpSBR == 0) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
         IupSetAttribute(dlgMsg, "PARENTDIALOG", ID_DLGMAIN);
@@ -448,11 +442,11 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
     byteCount = (unsigned int) ((pHeader->imgWidth / 8) * pHeader->imgHeight);
     while (index < byteCount) {
         packByte = util_pack8ByteMSBfirst(pPixelArray, index * 8);      // Pack 8 bits into a single byte
-        fwrite((const void *) &packByte, 1, 1, fpRBI);                  // Write packed byte to file
+        fwrite((const void *) &packByte, 1, 1, fpSBR);                  // Write packed byte to file
         index = index + 1;
     }
-    fflush(fpRBI);
-    fclose(fpRBI);
+    fflush(fpSBR);
+    fclose(fpSBR);
     
     END:
     IupDestroy(dlgFile);                            // Destroy file selection dialog

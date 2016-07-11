@@ -12,6 +12,7 @@
 
 
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,13 +59,16 @@ void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader)
     fread((void *) pDibData, 1, dibDataLen, fpBitmap);              // This is the dib header without the size
     
     memset((void *) pDibHeader, 0,  sizeof(struct DibHeader));
-    pDibHeader->imgWidth =          (int) bitmap_LittleEndToINT32(pDibData + 0);
-    pDibHeader->imgHeight =         (int) bitmap_LittleEndToINT32(pDibData + 4);
-    pDibHeader->bitsPerPixel =      (int) bitmap_LittleEndToINT16(pDibData + 10);
-    pDibHeader->compression =       (int) bitmap_LittleEndToINT32(pDibData + 12);
-    pDibHeader->imageDataLen =      (int) bitmap_LittleEndToINT32(pDibData + 16);
-    pDibHeader->colorCount =        (int) bitmap_LittleEndToINT32(pDibData + 28);
+    pDibHeader->imgWidth =          (int)       bitmap_LittleEndToINT32(pDibData + 0);
+    pDibHeader->imgHeight =         (int)       bitmap_LittleEndToINT32(pDibData + 4);
+    pDibHeader->bitsPerPixel =      (int)       bitmap_LittleEndToINT16(pDibData + 10);
+    pDibHeader->compression =       (int)       bitmap_LittleEndToINT32(pDibData + 12);
+    pDibHeader->imageDataLen =      (int)       bitmap_LittleEndToINT32(pDibData + 16);
+    pDibHeader->colorCount =        (uint64_t)  bitmap_LittleEndToINT32(pDibData + 28);
     
+    if (pDibHeader->colorCount == 0) {
+        pDibHeader->colorCount = (uint64_t) pow(2.0, (double) pDibHeader->bitsPerPixel);
+    }
     if (pDibHeader->imgHeight < 0) {
         pDibHeader->imgHeight = (-1) * pDibHeader->imgHeight;
     }

@@ -20,6 +20,7 @@
 
 
 #include <stdio.h>
+#include <stdint.h>
 
 
 
@@ -28,7 +29,7 @@
 #define BMX1                            'B'
 #define BMX2                            'M'
 #define BMP_HEADER_SIZE                  14
-#define BMP_COLOR_PALLETTE_SIZE          8
+#define BMP_COLOR_PALETTE_SIZE           8
 
 
 
@@ -40,7 +41,7 @@ struct DibHeader {                              // Standard Data Structure for s
     int imgHeight;                              // Height of the bitmap image (in pixels)
     int imageDataLen;                           // Length of the bitmap image WITH PADDING (in bytes)
     int bitsPerPixel;                           // Number of bits used to represent each pixel
-    int colorCount;                             // Number of total colors in the color pallette
+    uint64_t colorCount;                        // Number of total colors in the color pallette
     int compression;                            // Is RLE compression applied or not (0 for none)
     
 };
