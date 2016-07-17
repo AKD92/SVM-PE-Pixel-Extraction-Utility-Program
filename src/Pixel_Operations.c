@@ -340,7 +340,7 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
         goto END;
     }
     
-    fpBPA = fopen(strFile, "wb");
+    fpBPA = fopen(strFile, "wb");                   // File mode must be BINARY WRITE
     if (fpBPA == 0) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
@@ -376,7 +376,7 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
 
 int cb_btnStoreRasterBitImage(Ihandle *ih) {
     
-    FILE *fpSBR;
+    FILE *fpRaster;
     Ihandle *dlgFile, *dlgMsg;
     char *strFile, *dlgVal;
     unsigned int index;
@@ -385,7 +385,7 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
     int dlgStatus;
     
     dlgFile = 0;
-    fpSBR = 0;
+    fpRaster = 0;
     strFile = 0;
     packByte = 0x00;
     
@@ -424,8 +424,8 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
         goto END;
     }
     
-    fpSBR = fopen(strFile, "wb");                   // File mode must be binary write
-    if (fpSBR == 0) {
+    fpRaster = fopen(strFile, "wb");                   // File mode must be BINARY WRITE
+    if (fpRaster == 0) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
         IupSetAttribute(dlgMsg, "PARENTDIALOG", ID_DLGMAIN);
@@ -447,11 +447,11 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
     byteCount = (unsigned int) ((pHeader->imgWidth / 8) * pHeader->imgHeight);
     while (index < byteCount) {
         packByte = util_pack8ByteMSBfirst(pPixelArray, index * 8);      // Pack 8 bits into a single byte
-        fwrite((const void *) &packByte, 1, 1, fpSBR);                  // Write packed byte to file
+        fwrite((const void *) &packByte, 1, 1, fpRaster);               // Write packed byte to file
         index = index + 1;
     }
-    fflush(fpSBR);
-    fclose(fpSBR);
+    fflush(fpRaster);
+    fclose(fpRaster);
     
     END:
     IupDestroy(dlgFile);                            // Destroy file selection dialog

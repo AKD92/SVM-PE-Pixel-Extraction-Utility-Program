@@ -65,9 +65,9 @@ void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader)
     pDibHeader->compression =       (int)       bitmap_LittleEndToINT32(pDibData + 12);
     pDibHeader->imageDataLen =      (int)       bitmap_LittleEndToINT32(pDibData + 16);
     pDibHeader->colorCount =        (uint64_t)  bitmap_LittleEndToINT32(pDibData + 28);
-    pDibHeader->padBitPerRow = 
-            (unsigned char) ((((pDibHeader->bitsPerPixel * pDibHeader->imgWidth + 31) / 32) * 4 * 8)
-                                    - pDibHeader->imgWidth * pDibHeader->bitsPerPixel);
+    pDibHeader->padBitPerRow =      (unsigned char)
+            ((((pDibHeader->bitsPerPixel * pDibHeader->imgWidth + 31) / 32) * 4 * 8)
+                            - pDibHeader->imgWidth * pDibHeader->bitsPerPixel);
     
     if (pDibHeader->colorCount == 0) {
         pDibHeader->colorCount = (uint64_t) pow(2.0, (double) pDibHeader->bitsPerPixel);

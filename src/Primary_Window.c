@@ -98,7 +98,7 @@ Ihandle *createMainDialog(void) {
     IupSetAttribute(btnExtract, "RASTERSIZE", "190x35");
     IupSetCallback(btnExtract, "ACTION", (Icallback) cb_btnExtract);
     
-    btnInvert = IupButton("Invert Pixel Array", 0);
+    btnInvert = IupButton("Invert Pixel Locations", 0);
     IupSetAttribute(btnInvert, "RASTERSIZE", "190x35");
     IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvert);
     
@@ -149,7 +149,7 @@ Ihandle *createMainDialog(void) {
     boxlbl3 = IupHbox(boxlbl1, boxlbl2, 0);
     IupSetAttribute(boxlbl3, "NGAP", "5");
     IupSetAttribute(boxlbl3, "NMARGIN", "0x0");
-    IupSetAttribute(boxlbl3, "EXPAND", "VERTICAL");
+    IupSetAttribute(boxlbl3, "EXPAND", "NO");
     
     boxControls = IupVbox(boxlbl3,
                             IupFill(),
@@ -269,16 +269,15 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
     xstart = (cv_width - pHeader->imgWidth) / 2;
     ystart = (cv_height - pHeader->imgHeight) / 2;
     
-    cdCanvasBox(db,
-                xstart, xstart + pHeader->imgWidth - 1,
-                ystart, ystart + pHeader->imgHeight - 1);
+    cdCanvasBox(db, xstart, xstart + pHeader->imgWidth - 1,
+                            ystart, ystart + pHeader->imgHeight - 1);
                 
 //  cdCanvasFlush(db);
     
     for (row = 0; row < pHeader->imgHeight; row++) {
         dy = row + ystart;
         cdCanvasUpdateYAxis(db, &dy);
-        rowIndex = (row * pHeader->imgWidth);
+        rowIndex = row * pHeader->imgWidth;
         
         for (col = 0; col < pHeader->imgWidth; col++) {
             dx = col + xstart;
