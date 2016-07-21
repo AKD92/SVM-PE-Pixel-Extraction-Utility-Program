@@ -42,17 +42,17 @@ extern Ihandle *lblPadByteCount;
 
 
 
-
 // Utility function prototypes
 void util_addExtensionIfNeeded(char *strFile, char *strExtension);
 unsigned char util_pack8ByteMSBfirst(unsigned char *pByteArray, unsigned int startPosition);
 unsigned char util_pack8ByteLSBfirst(unsigned char *pByteArray, unsigned int startPosition);
 
 
+
 // GUI Callback function prototypes
 int cb_btnOpen(Ihandle *ih);
-int cb_btnExtract(Ihandle *ih);
-int cb_btnInvert(Ihandle *ih);
+int cb_btnExtractPixels(Ihandle *ih);
+int cb_btnInvertPixels(Ihandle *ih);
 int cb_btnStoreBinaryPixelArray(Ihandle *ih);
 int cb_btnStoreRasterBitImage(Ihandle *ih);
 int cb_btnEraseData(Ihandle *ih);
@@ -111,7 +111,7 @@ int cb_btnOpen(Ihandle *ih) {
 
 
 
-int cb_btnExtract(Ihandle *ih) {
+int cb_btnExtractPixels(Ihandle *ih) {
     
     char *atrTitle;
     char *pStrFile;
@@ -120,7 +120,7 @@ int cb_btnExtract(Ihandle *ih) {
     struct DibHeader dibHeader;                             // we store image information in DibHeader
     unsigned char bmpSignature[2];                          // 2 byte file signature
     unsigned char bmpHeader[BMP_HEADER_SIZE];               // 14 byte file header
-    unsigned char colPalette[BMP_COLOR_PALETTE_SIZE];     // 8 byte color pallette
+    unsigned char colPalette[BMP_COLOR_PALETTE_SIZE];       // 8 byte color pallette
     unsigned char *pImageData;                              // arbitrary length raw image data with padding
     
     fpBitmap = 0;
@@ -238,7 +238,7 @@ int cb_btnExtract(Ihandle *ih) {
 
 
 
-int cb_btnInvert(Ihandle *ih) {
+int cb_btnInvertPixels(Ihandle *ih) {
     
     int width;
     int row_a, row_b;
@@ -304,7 +304,7 @@ int cb_btnEraseData(Ihandle *ih) {
 
 int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
     
-    FILE *fpBPA;
+    FILE *fpPixelFile;
     Ihandle *dlgFile, *dlgMsg;
     char *strFile, *dlgVal;
     int row, col;
@@ -312,7 +312,7 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
     int dlgStatus;
     
     dlgFile = 0;
-    fpBPA = 0;
+    fpPixelFile = 0;
     strFile = 0;
     
     if (pHeader == 0 || pPixelArray == 0) {
@@ -340,8 +340,8 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
         goto END;
     }
     
-    fpBPA = fopen(strFile, "wb");                   // File mode must be BINARY WRITE
-    if (fpBPA == 0) {
+    fpPixelFile = fopen(strFile, "wb");                   // File mode must be BINARY WRITE
+    if (fpPixelFile == 0) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
         IupSetAttribute(dlgMsg, "PARENTDIALOG", ID_DLGMAIN);
@@ -360,11 +360,11 @@ int cb_btnStoreBinaryPixelArray(Ihandle *ih) {
     for (row = 0; row < pHeader->imgHeight; row++) {
         for (col = 0; col < pHeader->imgWidth; col++) {
             pPixel = pPixelArray + (row * pHeader->imgWidth) + col;
-            fwrite((const void *) pPixel, 1, 1, fpBPA);
+            fwrite((const void *) pPixel, 1, 1, fpPixelFile);
         }
     }
-    fflush(fpBPA);
-    fclose(fpBPA);
+    fflush(fpPixelFile);
+    fclose(fpPixelFile);
     
     END:
     IupDestroy(dlgFile);                            // Destroy file selection dialog
@@ -409,8 +409,8 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
     IupSetAttribute(dlgFile, "MULTIPLEFILES", "NO");
     IupSetAttribute(dlgFile, "PARENTDIALOG", ID_DLGMAIN);
     IupSetAttribute(dlgFile, "TITLE", "Store Image");
-    IupSetAttribute(dlgFile, "FILTER", "*.SBR");
-    IupSetAttribute(dlgFile, "FILTERINFO", "ESC\\POS Single-Bit Raster (*.SBR)");
+    IupSetAttribute(dlgFile, "FILTER", "*.R");
+    IupSetAttribute(dlgFile, "FILTERINFO", "ESC\\POS Single-Bit Raster (*.R)");
     IupPopup(dlgFile, IUP_CENTER, IUP_CENTER);
     
     dlgStatus = IupGetInt(dlgFile, "STATUS");
@@ -418,7 +418,7 @@ int cb_btnStoreRasterBitImage(Ihandle *ih) {
         dlgVal = IupGetAttribute(dlgFile, "VALUE");
         strFile = (char *) malloc(strlen(dlgVal) + 1 + 5);
         strcpy(strFile, dlgVal);
-        util_addExtensionIfNeeded(strFile, "SBR");
+        util_addExtensionIfNeeded(strFile, "R");
     }
     else {
         goto END;

@@ -26,7 +26,7 @@
 
 
 #define ID_CD_SCREEN            "cd_canvas"                         // On-Screen Canvas
-#define ID_CD_DBUF              "cd_doubleBufferedCanvas"           // Off-Screen (Double Buffered) Canvas
+#define ID_CD_DOUBLEBUFFERED    "cd_doubleBufferedCanvas"           // Off-Screen (Double Buffered) Canvas
 #define ID_DLGMAIN              "dlgMAIN"                           // Primary Dialog Window
 
 
@@ -54,16 +54,16 @@ static const char *strTitle = "Pixel Extraction Utility (The SVM Project)";
 Ihandle * createMainDialog(void);
 
 int cb_btnOpen(Ihandle *ih);
-int cb_btnExtract(Ihandle *ih);
-int cb_btnInvert(Ihandle *ih);
+int cb_btnExtractPixels(Ihandle *ih);
+int cb_btnInvertPixels(Ihandle *ih);
 int cb_btnStoreBinaryPixelArray(Ihandle *ih);
 int cb_btnStoreRasterBitImage(Ihandle *ih);
 int cb_btnEraseData(Ihandle *ih);
 
-int cv_map(Ihandle *ih);                                    // Creation of internal cdCanvas
-int cv_unmap(Ihandle *ih);                                  // Destruction of internal cdCanvas
-int cv_resize(Ihandle *ih);                                 // Resize internal cdCanvas
-int cv_draw(Ihandle *ih, float posx, float posy);           // Drawing on internal cdCanvas
+int cb_map(Ihandle *ih);                                    // Creation of internal cdCanvas
+int cb_unmap(Ihandle *ih);                                  // Destruction of internal cdCanvas
+int cb_resize(Ihandle *ih);                                 // Resize internal cdCanvas
+int cb_draw(Ihandle *ih, float posx, float posy);           // Drawing on internal cdCanvas
 
 
 
@@ -96,11 +96,11 @@ Ihandle *createMainDialog(void) {
     
     btnExtract = IupButton("Extract Pixel Array", 0);
     IupSetAttribute(btnExtract, "RASTERSIZE", "190x35");
-    IupSetCallback(btnExtract, "ACTION", (Icallback) cb_btnExtract);
+    IupSetCallback(btnExtract, "ACTION", (Icallback) cb_btnExtractPixels);
     
     btnInvert = IupButton("Invert Pixel Locations", 0);
     IupSetAttribute(btnInvert, "RASTERSIZE", "190x35");
-    IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvert);
+    IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvertPixels);
     
     btnStore = IupButton("Store As\nBinary Pixel Array", 0);
     IupSetAttribute(btnStore, "RASTERSIZE", "190x42");
@@ -169,10 +169,10 @@ Ihandle *createMainDialog(void) {
     canvas = IupCanvas(0);
     IupSetAttribute(canvas, "BORDER", "NO");
     IupSetAttribute(canvas, "EXPAND", "YES");
-    IupSetCallback(canvas, "MAP_CB", (Icallback) cv_map);
-    IupSetCallback(canvas, "UNMAP_CB", (Icallback) cv_unmap);
-    IupSetCallback(canvas, "RESIZE_CB", (Icallback) cv_resize);
-    IupSetCallback(canvas, "ACTION", (Icallback) cv_draw);
+    IupSetCallback(canvas, "MAP_CB",        (Icallback) cb_map);
+    IupSetCallback(canvas, "UNMAP_CB",      (Icallback) cb_unmap);
+    IupSetCallback(canvas, "RESIZE_CB",     (Icallback) cb_resize);
+    IupSetCallback(canvas, "ACTION",        (Icallback) cb_draw);
     
     boxPreview = IupHbox(canvas, 0);
     IupSetAttribute(boxPreview, "NMARGIN", "10x10");
@@ -201,31 +201,32 @@ Ihandle *createMainDialog(void) {
 
 
 
-int cv_map(Ihandle *ih) {
+int cb_map(Ihandle *ih) {
     
     cdCanvas *cd;
     cdCanvas *db;
     
-    cd = cdCreateCanvas(CD_IUP, canvas);
-    db = cdCreateCanvas(CD_DBUFFER, cd);
+    cd = cdCreateCanvas(CD_IUP, canvas);                // Create on-screen drawing canvas
+    db = cdCreateCanvas(CD_DBUFFER, cd);                // Create off-screen double-buffered drawing canvas
     
     cdCanvasBackground(cd, CD_YELLOW);
     cdCanvasBackground(db, CD_YELLOW);
     cdCanvasForeground(cd, CD_WHITE);
     cdCanvasForeground(db, CD_WHITE);
-    IupSetAttribute(canvas, ID_CD_SCREEN, (char *) cd);
-    IupSetAttribute(canvas, ID_CD_DBUF, (char *) db);
+    
+    IupSetAttribute(canvas, ID_CD_SCREEN,           (char *) cd);
+    IupSetAttribute(canvas, ID_CD_DOUBLEBUFFERED,   (char *) db);
     return IUP_DEFAULT;
 }
 
 
-int cv_unmap(Ihandle *ih) {
+int cb_unmap(Ihandle *ih) {
     
     cdCanvas *cd;
     cdCanvas *db;
     
     cd = (cdCanvas *) IupGetAttribute(canvas, ID_CD_SCREEN);
-    db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DBUF);
+    db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DOUBLEBUFFERED);
     
     cdKillCanvas(db);
     cdKillCanvas(cd);
@@ -233,22 +234,22 @@ int cv_unmap(Ihandle *ih) {
 }
 
 
-int cv_resize(Ihandle *ih) {
+int cb_resize(Ihandle *ih) {
     
     cdCanvas *db;
     
-    db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DBUF);
+    db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DOUBLEBUFFERED);
     cdCanvasActivate(db);
     return IUP_DEFAULT;
 }
 
 
 
-int cv_draw(Ihandle *ih, float posx, float posy) {
+int cb_draw(Ihandle *ih, float posx, float posy) {
     
     cdCanvas *db;
     auto int xstart, ystart;
-    auto int cv_width, cv_height;
+    auto int cb_width, cb_height;
     unsigned char cPixelValue;
     auto int rowIndex;
     
@@ -256,9 +257,9 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
     register int dx;
     register int row, col;
     
-    db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DBUF);
+    db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DOUBLEBUFFERED);
     cdCanvasActivate(db);
-    cdCanvasGetSize(db, &cv_width, &cv_height, 0, 0);
+    cdCanvasGetSize(db, &cb_width, &cb_height, 0, 0);
     cdCanvasClear(db);
     cdCanvasFlush(db);
     
@@ -266,8 +267,8 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
         goto END;
     }
     
-    xstart = (cv_width - pHeader->imgWidth) / 2;
-    ystart = (cv_height - pHeader->imgHeight) / 2;
+    xstart = (cb_width - pHeader->imgWidth) / 2;
+    ystart = (cb_height - pHeader->imgHeight) / 2;
     
     cdCanvasBox(db, xstart, xstart + pHeader->imgWidth - 1,
                             ystart, ystart + pHeader->imgHeight - 1);
@@ -282,8 +283,11 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
         for (col = 0; col < pHeader->imgWidth; col++) {
             dx = col + xstart;
             cPixelValue = *(pPixelArray + rowIndex + col);
-            if (cPixelValue == 0x01) {
+            
+            switch (cPixelValue) {
+                case 0x01:
                 cdCanvasPixel(db, dx, dy, CD_BLACK);
+                break;
             }
         }
     }
@@ -295,11 +299,11 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
 
 
 
-//int cv_draw(Ihandle *ih, float posx, float posy) {
+//int cb_draw(Ihandle *ih, float posx, float posy) {
 //  
 //  cdCanvas *db;
 //  int xstart, ystart;
-//  int cv_width, cv_height;
+//  int cb_width, cb_height;
 //  unsigned char cPixelValue;
 //  long int pixelColor;
 //  long int rowIndex;
@@ -308,9 +312,9 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
 //  register int dx;
 //  register int row, col;
 //  
-//  db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DBUF);
+//  db = (cdCanvas *) IupGetAttribute(canvas, ID_CD_DOUBLEBUFFERED);
 //  cdCanvasActivate(db);
-//  cdCanvasGetSize(db, &cv_width, &cv_height, 0, 0);
+//  cdCanvasGetSize(db, &cb_width, &cb_height, 0, 0);
 //  cdCanvasClear(db);
 //  cdCanvasFlush(db);
 //  
@@ -318,8 +322,8 @@ int cv_draw(Ihandle *ih, float posx, float posy) {
 //      goto END;
 //  }
 //  
-//  xstart = (cv_width - pHeader->imgWidth) / 2;
-//  ystart = (cv_height - pHeader->imgHeight) / 2;
+//  xstart = (cb_width - pHeader->imgWidth) / 2;
+//  ystart = (cb_height - pHeader->imgHeight) / 2;
 //  
 //  for (row = 0; row < pHeader->imgHeight; row++) {
 //      rowIndex = (row * pHeader->imgWidth);
