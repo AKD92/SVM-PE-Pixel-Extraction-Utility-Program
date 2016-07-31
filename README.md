@@ -1,5 +1,6 @@
 
 <h1>
+<img src="SVM_PE_WALL.jpg" alt="SVM PE" align="left">
 SVM PE Pixel Extraction Utility Program
 </h1>
 <p>
