@@ -19,7 +19,7 @@ inside the produced image are arranged in rows.<br>So to print this raster image
 the <b>most suitable ESC\POS</b> command would be:
 <br><br><b>GS v 0 m xL xH yL yH d1...dk</b>
 <br>where <b>k = (xL + xH * 256) + (yL + yH * 256)</b>
-<br>and, <b>k MUST BE greater than 0</b>
+<br>and the condition <b>k > 0</b> must hold
 </p>
 
 <h3>Download</h3>
