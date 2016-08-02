@@ -4,7 +4,7 @@
 SVM PE Pixel Extraction Utility Program
 </h1>
 <p>
-A software which can extract <b>Pixel arrays</b> from <b>1-bpp Monochrome Bitmaps</b> and transform those extracted pixel data into <b>ESC\POS Single-bit Rasters</b>.
+An easy-to-use software which can extract <b>pixel data</b> from <b>1-bpp Monochrome Bitmaps</b> and transform those extracted data into <b>ESC\POS Single-Bit Rasters</b>.
 </p>
 
 <img src="SVM_PE_SCRN1.jpg" alt="Main Window" align="right" width="50%" height="50%">
@@ -21,11 +21,18 @@ A software which can extract <b>Pixel arrays</b> from <b>1-bpp Monochrome Bitmap
 </ul>
 
 <h3>Related Links</h3>
-<ul>
+<ol>
 <li>
 <a href="http://content.epson.de/fileadmin/content/files/RSD/downloads/escpos.pdf">ESC/POS at Epson</a>
 </li>
 <li>
 <a href="https://en.wikipedia.org/wiki/Page_description_language">Page Description Language</a>
 </li>
-</ul>
+<li>
+<a href="http://www.fileformat.info/format/bmp/egff.htm">Microsoft Windows BITMAP File Format Summary</a>
+</li>
+<li>
+<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dd183376(v=vs.85).aspx">
+Bitmap Header Structure @ MSDN Developer Resource</a>
+</li>
+</ol>
