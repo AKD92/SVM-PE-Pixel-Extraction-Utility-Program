@@ -4,7 +4,7 @@
 SVM PE Pixel Extraction Utility Program
 </h1>
 <p>
-A program which can extract a pixel array from 1 bpp Monochrome Bitmap images and can convert that pixel information as ESC\POS Single-bit Raster format
+A software which can extract <b>Pixel arrays</b> from <b>1-bpp Monochrome Bitmaps</b> and transform those extracted pixel data into <b>ESC\POS Single-bit Rasters</b>.
 </p>
 
 <img src="SVM_PE_SCRN1.jpg" alt="Main Window" align="right" width="50%" height="50%">
@@ -12,7 +12,7 @@ A program which can extract a pixel array from 1 bpp Monochrome Bitmap images an
 <h3>Download</h3>
 <ul>
 <li>
-<a href="https://github.com/AKD92/SVM-PE-Pixel-Extraction-Utility-Program/raw/master/bin/SVM_PE_UTIL.EXE">Binary Executable (win32)
+<a href="https://github.com/AKD92/SVM-PE-Pixel-Extraction-Utility-Program/raw/master/bin/SVM_PE_UTIL.EXE">Stand-alone Binary Executable (Win32)
 <br></a> Compiled using <a href="http://tdm-gcc.tdragon.net/about">TDM-GCC 5.1</a>
 </li>
 </ul>
