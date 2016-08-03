@@ -32,6 +32,9 @@ Standalone Executable (Win32)
 <li><b>
 <a href="/src">Browse for Source Codes</a> on GitHub
 </b></li>
+<li><b>
+<a href="/sample_images">Browse for Sample Bitmap Images</a> on GitHub
+</b></li>
 </ul>
 
 <h3>Related Links</h3>
