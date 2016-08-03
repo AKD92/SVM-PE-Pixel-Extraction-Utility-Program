@@ -3,15 +3,17 @@
 <img src="SVM_PE_WALL.jpg" alt="SVM PE" align="left">
 SVM PE Pixel Extraction Utility Program
 </h1>
+
 <p>
 An easy-to-use software which can extract <b>pixel data</b> from <b>1-bpp Monochrome Bitmaps</b>
 and transform those extracted data into <b>ESC\POS Single-Bit Rasters</b>.
 </p>
 
 <h3>
-Printing Guidelines
-</h3>
+<br>Printing Guidelines
 <img src="SVM_PE_SCRN1.jpg" alt="Main Window" align="right" width="50%" height="50%" />
+</h3>
+
 <p align="justify">
 The single-bit raster image produced by SVM PE is generally <b>row-ordered</b>. That means, consecutive pixel data
 inside the produced image are arranged in rows.<br>So to print this raster image by Thermal POS printers,
