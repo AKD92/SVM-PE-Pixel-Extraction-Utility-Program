@@ -1,0 +1,166 @@
+# depslib dependency file v1.0
+1468832028 source:c:\users\administrator\mylib\svm pe\src\bitmap_read_algorithms.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	"Bitmap_Read_Algorithms.h"
+
+1468234722 c:\users\administrator\mylib\svm pe\src\bitmap_read_algorithms.h
+	<stdio.h>
+	<stdint.h>
+
+1469111783 source:c:\users\administrator\mylib\svm pe\src\pixel_operations.c
+	<iup.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<inttypes.h>
+	"Bitmap_Read_Algorithms.h"
+
+1448885964 c:\users\administrator\mylib\svm pe\lib\iup-3.17_win32_mingw4_lib\include\iup.h
+	"iupkey.h"
+	"iupdef.h"
+
+1437855078 c:\users\administrator\mylib\svm pe\lib\iup-3.17_win32_mingw4_lib\include\iupkey.h
+
+1437855078 c:\users\administrator\mylib\svm pe\lib\iup-3.17_win32_mingw4_lib\include\iupdef.h
+
+1468832437 source:c:\users\administrator\mylib\svm pe\src\primary_window.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iup.h>
+	<cd.h>
+	<cdiup.h>
+	<cddbuf.h>
+	"Bitmap_Read_Algorithms.h"
+
+1442311624 c:\users\administrator\mylib\svm pe\lib\cd-5.9_win32_mingw4_lib\include\cd.h
+
+1406728920 c:\users\administrator\mylib\svm pe\lib\cd-5.9_win32_mingw4_lib\include\cdiup.h
+
+1406728920 c:\users\administrator\mylib\svm pe\lib\cd-5.9_win32_mingw4_lib\include\cddbuf.h
+
+1468217932 source:c:\users\administrator\mylib\svm pe\src\svm_pe_driver.c
+	<iup.h>
+	<stdio.h>
+	<stdlib.h>
+	"Bitmap_Read_Algorithms.h"
+
+1468161698 source:c:\users\administrator\mylib\svm pe\src\svm_pe_utilites.c
+	<string.h>
+
+1468832028 source:c:\users\administrator\mylib\svm pe pixel extraction utility\src\bitmap_read_algorithms.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	"Bitmap_Read_Algorithms.h"
+
+1468234722 c:\users\administrator\mylib\svm pe pixel extraction utility\src\bitmap_read_algorithms.h
+	<stdio.h>
+	<stdint.h>
+
+1469111783 source:c:\users\administrator\mylib\svm pe pixel extraction utility\src\pixel_operations.c
+	<iup.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<inttypes.h>
+	"Bitmap_Read_Algorithms.h"
+
+1448885964 c:\users\administrator\mylib\svm pe pixel extraction utility\lib\iup-3.17_win32_mingw4_lib\include\iup.h
+	"iupkey.h"
+	"iupdef.h"
+
+1437855078 c:\users\administrator\mylib\svm pe pixel extraction utility\lib\iup-3.17_win32_mingw4_lib\include\iupkey.h
+
+1437855078 c:\users\administrator\mylib\svm pe pixel extraction utility\lib\iup-3.17_win32_mingw4_lib\include\iupdef.h
+
+1468832437 source:c:\users\administrator\mylib\svm pe pixel extraction utility\src\primary_window.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iup.h>
+	<cd.h>
+	<cdiup.h>
+	<cddbuf.h>
+	"Bitmap_Read_Algorithms.h"
+
+1442311624 c:\users\administrator\mylib\svm pe pixel extraction utility\lib\cd-5.9_win32_mingw4_lib\include\cd.h
+
+1406728920 c:\users\administrator\mylib\svm pe pixel extraction utility\lib\cd-5.9_win32_mingw4_lib\include\cdiup.h
+
+1406728920 c:\users\administrator\mylib\svm pe pixel extraction utility\lib\cd-5.9_win32_mingw4_lib\include\cddbuf.h
+
+1468217932 source:c:\users\administrator\mylib\svm pe pixel extraction utility\src\svm_pe_driver.c
+	<iup.h>
+	<stdio.h>
+	<stdlib.h>
+	"Bitmap_Read_Algorithms.h"
+
+1468161698 source:c:\users\administrator\mylib\svm pe pixel extraction utility\src\svm_pe_utilites.c
+	<string.h>
+
+1469141520 source:c:\users\administrator\mylib\svm pe pixel extraction utility\svm_pe_resource_file.rc
+
+1470238537 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_driver.c
+	<iup.h>
+	<stdio.h>
+	<stdlib.h>
+	"Bitmap_Read_Algorithms.h"
+
+1448885964 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\iup-3.17_win32_mingw4_lib\include\iup.h
+	"iupkey.h"
+	"iupdef.h"
+
+1437855078 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\iup-3.17_win32_mingw4_lib\include\iupkey.h
+
+1437855078 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\iup-3.17_win32_mingw4_lib\include\iupdef.h
+
+1470241547 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\bitmap_read_algorithms.h
+	<stdio.h>
+	<stdint.h>
+
+1470242740 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_utilites.c
+	<string.h>
+
+1470237381 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\bitmap_read_algorithms.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	"Bitmap_Read_Algorithms.h"
+
+1470242740 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\pixel_operations.c
+	<iup.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<inttypes.h>
+	"Bitmap_Read_Algorithms.h"
+
+1470185904 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\svm_pe_resource_file.rc
+
+1470239259 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\primary_window.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iup.h>
+	<cd.h>
+	<cdiup.h>
+	<cddbuf.h>
+	"Bitmap_Read_Algorithms.h"
+
+1442311624 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\cd-5.9_win32_mingw4_lib\include\cd.h
+
+1406728920 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\cd-5.9_win32_mingw4_lib\include\cdiup.h
+
+1406728920 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\cd-5.9_win32_mingw4_lib\include\cddbuf.h
+
+1470238500 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\res\svm_pe_resource_file.rc
+

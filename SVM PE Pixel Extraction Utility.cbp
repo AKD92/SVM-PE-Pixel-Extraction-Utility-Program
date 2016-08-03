@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SVM PE Pixel Extraction Utility" />
+		<Option pch_mode="2" />
+		<Option compiler="tdm_gcc_32bit_compiler" />
+		<Build>
+			<Target title="TDM GCC 32-bit">
+				<Option platforms="Windows;" />
+				<Option output="bin/TDM GCC 32-bit/SVM_PE_UTIL.EXE" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="bin/TDM GCC 32-bit" />
+				<Option object_output="obj/TDM GCC 32-bit/" />
+				<Option type="0" />
+				<Option compiler="tdm_gcc_32bit_compiler" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-std=c99" />
+					<Add directory="lib/iup-3.17_Win32_mingw4_lib/include" />
+					<Add directory="lib/cd-5.9_Win32_mingw4_lib/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="iup" />
+					<Add library="gdi32" />
+					<Add library="comdlg32" />
+					<Add library="comctl32" />
+					<Add library="uuid" />
+					<Add library="oleaut32" />
+					<Add library="ole32" />
+					<Add library="iupcd" />
+					<Add library="cd" />
+					<Add library="freetype6" />
+					<Add library="z" />
+					<Add directory="lib/iup-3.17_Win32_mingw4_lib" />
+					<Add directory="lib/cd-5.9_Win32_mingw4_lib" />
+				</Linker>
+			</Target>
+			<Target title="MinGW GCC">
+				<Option platforms="Windows;" />
+				<Option output="bin/MinGW GCC/SVM_PE_UTIL.EXE" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="bin/MinGW GCC" />
+				<Option object_output="obj/MinGW GCC/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-std=c99" />
+					<Add directory="lib/iup-3.17_Win32_mingw4_lib/include" />
+					<Add directory="lib/cd-5.9_Win32_mingw4_lib/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="iup" />
+					<Add library="gdi32" />
+					<Add library="comdlg32" />
+					<Add library="comctl32" />
+					<Add library="uuid" />
+					<Add library="oleaut32" />
+					<Add library="ole32" />
+					<Add library="iupcd" />
+					<Add library="cd" />
+					<Add library="freetype6" />
+					<Add library="z" />
+					<Add directory="lib/iup-3.17_Win32_mingw4_lib" />
+					<Add directory="lib/cd-5.9_Win32_mingw4_lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="res/SVM_PE_Resource_File.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="src/Bitmap_Read_Algorithms.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/Bitmap_Read_Algorithms.h" />
+		<Unit filename="src/Pixel_Operations.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/Primary_Window.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/SVM_PE_Driver.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/SVM_PE_Utilites.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
