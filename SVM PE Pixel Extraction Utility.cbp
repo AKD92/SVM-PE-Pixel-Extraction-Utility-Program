@@ -83,7 +83,7 @@
 		<Unit filename="src/SVM_PE_Driver.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/SVM_PE_Utilites.c">
+		<Unit filename="src/SVM_PE_Utilities.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
