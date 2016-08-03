@@ -1,6 +1,6 @@
 
 <h1>
-<img src="SVM_PE_WALL.jpg" alt="SVM PE" align="left">
+<img src="res/SVM_PE_WALL.jpg" alt="SVM PE" align="left">
 SVM PE Pixel Extraction Utility Program
 </h1>
 
@@ -11,7 +11,7 @@ and transform those extracted data into <b>ESC\POS Single-Bit Rasters</b>.
 
 <h3>
 <br>Printing Guidelines
-<img src="SVM_PE_SCRN1.jpg" alt="Main Window" align="right" width="50%" height="50%" />
+<img src="res/SVM_PE_SCRN1.jpg" alt="Main Window" align="right" width="55%" height="55%" />
 </h3>
 
 <p align="justify">
