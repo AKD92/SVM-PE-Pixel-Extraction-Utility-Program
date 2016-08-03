@@ -37,7 +37,8 @@ Standalone Executable (Win32)
 <h3>Related Links</h3>
 <ol>
 <li><b>
-<a href="http://content.epson.de/fileadmin/content/files/RSD/downloads/escpos.pdf">ESC\POS specification at Epson</a>
+<a href="http://content.epson.de/fileadmin/content/files/RSD/downloads/escpos.pdf">
+ESC\POS Specification @ Epson</a>
 </b></li>
 <li><b>
 <a href="https://en.wikipedia.org/wiki/Page_description_language">Page Description Language</a>
