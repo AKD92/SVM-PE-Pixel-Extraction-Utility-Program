@@ -20,43 +20,51 @@
 
 
 
-// Contains Bit-Packing Algorithms implemented
+// Definitions Bit-Packing Algorithms
 
-void util_addExtensionIfNeeded(char *strFile, char *strExtension);
+void util_tryIncludeExtension(char *strFile, const char *strExtension);
 
-unsigned char util_pack8ByteMSBfirst(unsigned char *pByteArray, unsigned int startPosition);
+unsigned char util_pack8ByteMSBFirst(unsigned char *pByteArray, unsigned int startPosition);
 
-unsigned char util_pack8ByteLSBfirst(unsigned char *pByteArray, unsigned int startPosition);
-
-
+unsigned char util_pack8ByteLSBFirst(unsigned char *pByteArray, unsigned int startPosition);
 
 
 
 
 
 
-void util_addExtensionIfNeeded(char *strFile, char *strExtension) {
+
+
+void util_tryIncludeExtension(char *strFile, const char *strExtension) {
     
-    int index;
-    char cFile, cExt;
-    unsigned int extLen, fileLen;
+    unsigned int index;
+    char cFile, cExten;
+    unsigned int extenLen, fileLen;
     
-    if (strFile == 0 || strExtension == 0)
-        return;
+    if (strFile == 0 || strExtension == 0) {
+        goto END;
+    }
     
     fileLen = strlen(strFile);
-    extLen = strlen(strExtension);
+    extenLen = strlen(strExtension);
     
-    for (index = 1; index <= extLen; index++) {
+    if (extenLen == 0) {
+        goto END;
+    }
+    if (fileLen < extenLen) {
+        goto ADD_EXTENSION;
+    }
+    
+    for (index = 1; index <= extenLen; index++) {
         cFile = *(strFile + fileLen - index);
-        cExt = *(strExtension + extLen - index);
-        if (cFile != cExt) {
-            goto ADDEXT;
+        cExten = *(strExtension + extenLen - index);
+        if (cFile != cExten) {
+            goto ADD_EXTENSION;
         }
     }
     goto END;
     
-    ADDEXT:
+    ADD_EXTENSION:
     strcat(strFile, ".");
     strcat(strFile, strExtension);
     
@@ -66,48 +74,48 @@ void util_addExtensionIfNeeded(char *strFile, char *strExtension) {
 
 
 
-unsigned char util_pack8ByteMSBfirst(unsigned char *pByteArray, unsigned int startPosition) {
+unsigned char util_pack8ByteMSBFirst(unsigned char *pByteArray, unsigned int startPosition) {
     
     unsigned int index;
-    unsigned char xByte;
-    unsigned char bPackByte;
+    unsigned char dataByte;
+    unsigned char packByte;
     unsigned char *pStartAddress;
     
     index = 0;
-    bPackByte = 0x00;
-    pStartAddress = pByteArray + startPosition;         // Calculate memory address of first byte
+    packByte = 0x00;
+    pStartAddress = pByteArray + startPosition;             // Calculate memory address of first byte
     
     while (index < 8) {
-        xByte = *(pStartAddress + index);
-        xByte = xByte & 0x01;
-        bPackByte = bPackByte << 1;                     // Make room for inserting new bit
-        bPackByte = bPackByte | xByte;                  // Bitwise OR for positioning the bit
+        dataByte = *(pStartAddress + index);
+        dataByte = dataByte & 0x01;
+        packByte = packByte << 1;                           // Make room for inserting new bit
+        packByte = packByte | dataByte;                     // Bitwise OR for positioning the bit
         index = index + 1;
     }
-    return bPackByte;
+    return packByte;
 }
 
 
 
-unsigned char util_pack8ByteLSBfirst(unsigned char *pByteArray, unsigned int startPosition) {
+unsigned char util_pack8ByteLSBFirst(unsigned char *pByteArray, unsigned int startPosition) {
     
     unsigned int index;
-    unsigned char xByte;
-    unsigned char bPackByte;
+    unsigned char dataByte;
+    unsigned char packByte;
     unsigned char *pStartAddress;
     
     index = 0;
-    bPackByte = 0x00;
-    pStartAddress = pByteArray + startPosition;         // Calculate memory address of first byte
+    packByte = 0x00;
+    pStartAddress = pByteArray + startPosition;             // Calculate memory address of first byte
     
     while (index < 8) {
-        xByte = *(pStartAddress + index);
-        xByte = (xByte << 7) & 0x80;                    // Shift up LSB to MSB by 7 bits
-        bPackByte = bPackByte >> 1;                     // Make room for inserting new bit
-        bPackByte = bPackByte | xByte;                  // Bitwise OR for positioning the bit
+        dataByte = *(pStartAddress + index);
+        dataByte = (dataByte << 7) & 0x80;                  // Shift up LSB to MSB by 7 bits
+        packByte = packByte >> 1;                           // Make room for inserting new bit
+        packByte = packByte | dataByte;                     // Bitwise OR for positioning the bit
         index = index + 1;
     }
-    return bPackByte;
+    return packByte;
 }
 
 

@@ -1,7 +1,7 @@
 
 
 /****************************************************************************************
-    Implementation of Pixel Extraction Algorithms of Monochrome Bitmap Images (1bpp)
+    Implementation of Pixel Extraction Algorithms from Monochrome Bitmaps (1 bpp)
     Author:             Ashis Kumar Das
     Email:              akd.bracu@gmail.com
     GitHub:             https://github.com/AKD92
@@ -41,8 +41,8 @@ unsigned char bitmap_readPixelValue(const unsigned char *pImageData, int scanLin
 
 
 
-void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader)
-{
+void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader) {
+    
     unsigned int dibDataLen;
     unsigned char *pDibData, arrHeaderSize[4];
     
@@ -116,8 +116,8 @@ void bitmap_readPixelArray(unsigned char *pPixelArray,
 
 
 
-uint32_t bitmap_LittleEndToINT32(unsigned char *pByteArray)
-{
+uint32_t bitmap_LittleEndToINT32(unsigned char *pByteArray) {
+    
     uint32_t intValue;
     
     intValue = 0;
@@ -131,8 +131,8 @@ uint32_t bitmap_LittleEndToINT32(unsigned char *pByteArray)
 
 
 
-uint16_t bitmap_LittleEndToINT16(unsigned char *pByteArray)
-{
+uint16_t bitmap_LittleEndToINT16(unsigned char *pByteArray) {
+    
     uint16_t intValue;
     
     intValue = 0;

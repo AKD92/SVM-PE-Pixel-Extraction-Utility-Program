@@ -1,7 +1,7 @@
 
 
 /****************************************************************************************
-    Implementation of Driver Function (main) The Entrypoint of This Program
+    Implementation of Driver Function (main) : The Entrypoint of the Program
     Author:             Ashis Kumar Das
     Email:              akd.bracu@gmail.com
     GitHub:             https://github.com/AKD92

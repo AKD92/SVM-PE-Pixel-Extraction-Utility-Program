@@ -25,21 +25,20 @@
 
 
 
-#define ID_CD_SCREEN            "cd_canvas"                         // On-Screen Canvas
-#define ID_CD_DOUBLEBUFFERED    "cd_doubleBufferedCanvas"           // Off-Screen (Double Buffered) Canvas
-#define ID_DLGMAIN              "dlgMAIN"                           // Primary Dialog Window
+#define ID_CD_SCREEN                "cd_canvas"                   // On-Screen Canvas
+#define ID_CD_DOUBLEBUFFERED        "cd_doubleBuffered"           // Off-Screen (Double Buffered) Canvas
+#define ID_DLGMAIN                  "MainDialog"                  // Primary Dialog Window
 
 
 
 
 
-Ihandle *txtOpen, *btnOpen;
 Ihandle *canvas;
-Ihandle *btnStoreRBI;
-Ihandle *btnExtract, *btnInvert, *btnStore;
-Ihandle *btnEraseData;
+Ihandle *txtOpen, *btnOpen;
+Ihandle *btnExtract, *btnInvert, *btnEraseData;
 Ihandle *lblWidth, *lblHeight, *lblBpp, *lblColor;
 Ihandle *lblCompression, *lblPadByteCount;
+Ihandle *btnStoreMSBFirst, *btnStoreLSBFirst;
 
 
 struct DibHeader *pHeader;
@@ -56,8 +55,7 @@ Ihandle * createMainDialog(void);
 int cb_btnOpen(Ihandle *ih);
 int cb_btnExtractPixels(Ihandle *ih);
 int cb_btnInvertPixels(Ihandle *ih);
-int cb_btnStoreBinaryPixelArray(Ihandle *ih);
-int cb_btnStoreRasterBitImage(Ihandle *ih);
+int cb_btnStoreBitRaster(Ihandle *ih);
 int cb_btnEraseData(Ihandle *ih);
 
 int cb_map(Ihandle *ih);                                    // Creation of internal cdCanvas
@@ -102,13 +100,13 @@ Ihandle *createMainDialog(void) {
     IupSetAttribute(btnInvert, "RASTERSIZE", "190x35");
     IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvertPixels);
     
-    btnStore = IupButton("Store As\nBinary Pixel Array", 0);
-    IupSetAttribute(btnStore, "RASTERSIZE", "190x42");
-    IupSetCallback(btnStore, "ACTION", (Icallback) cb_btnStoreBinaryPixelArray);
+    btnStoreLSBFirst = IupButton("Store As LSB First\nESC\\POS Single-Bit Raster", 0);
+    IupSetAttribute(btnStoreLSBFirst, "RASTERSIZE", "190x45");
+    IupSetCallback(btnStoreLSBFirst, "ACTION", (Icallback) cb_btnStoreBitRaster);
     
-    btnStoreRBI = IupButton("Store As\nESC\\POS Single-Bit Raster", 0);
-    IupSetAttribute(btnStoreRBI, "RASTERSIZE", "190x42");
-    IupSetCallback(btnStoreRBI, "ACTION", (Icallback) cb_btnStoreRasterBitImage);
+    btnStoreMSBFirst = IupButton("Store As MSB First\nESC\\POS Single-Bit Raster", 0);
+    IupSetAttribute(btnStoreMSBFirst, "RASTERSIZE", "190x45");
+    IupSetCallback(btnStoreMSBFirst, "ACTION", (Icallback) cb_btnStoreBitRaster);
     
     btnEraseData = IupButton("Erase Data Structures", 0);
     IupSetAttribute(btnEraseData, "RASTERSIZE", "190x35");
@@ -155,8 +153,8 @@ Ihandle *createMainDialog(void) {
                             IupFill(),
                             btnExtract,
                             btnInvert,
-                            btnStore,
-                            btnStoreRBI,
+                            btnStoreLSBFirst,
+                            btnStoreMSBFirst,
                             btnEraseData, 0);
     IupSetAttribute(boxControls, "EXPAND", "VERTICAL");
     IupSetAttribute(boxControls, "NGAP", "5");

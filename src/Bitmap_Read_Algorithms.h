@@ -1,7 +1,7 @@
 
 
 /****************************************************************************************
-    Program Interface of Pixel Extraction Algorithms of Monochrome Bitmap Images (1 bpp)
+    Program Interface of Pixel Extraction Algorithms from Monochrome Bitmaps (1 bpp)
     Author:             Ashis Kumar Das
     Email:              akd.bracu@gmail.com
     GitHub:             https://github.com/AKD92
@@ -29,7 +29,7 @@
 #define BMX1                            'B'
 #define BMX2                            'M'
 #define BMP_HEADER_SIZE                  14
-#define BMP_COLOR_PALETTE_SIZE           8
+#define BMP_PALETTE_SIZE                 8
 
 
 
@@ -55,6 +55,8 @@ void bitmap_readDibHeader(FILE *fpBitmap, struct DibHeader *pDibHeader);
 void bitmap_readPixelArray(unsigned char *pPixelArray,
                                 const struct DibHeader *pDibHeader,
                                             const unsigned char *pImageData);
+
+
 
 
 
