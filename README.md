@@ -26,7 +26,7 @@ the <b>most suitable ESC\POS</b> command would be:
 <h3>Download</h3>
 <ul>
 <li><b>
-<a href="https://github.com/AKD92/SVM-PE-Pixel-Extraction-Utility-Program/raw/master/bin/SVM_PE_UTIL.EXE">
+<a href="https://github.com/AKD92/SVM-PE-Pixel-Extraction-Utility-Program/raw/master/bin/svm_pe_x86.exe">
 Standalone Executable (Win32)</a>
 <br>Compiled using <a href="http://tdm-gcc.tdragon.net/about">TDM-GCC 5.1</a>
 </b></li>
