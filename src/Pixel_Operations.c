@@ -67,6 +67,8 @@ static const char *frmt2 = "%d bpp";
 static const char *frmt3 = "%" PRIu64;
 static const char *frmt4 = "%d (RLE)";
 static const char *frmt5 = "%u bits";
+static const char *strFileError
+            = "File does not exist or invalid file address\n\n%s";
 static const char *strHeaderError
             = "This is not a bitmap image file at all\n\n%s";
 static const char *strOpenFilter
@@ -76,9 +78,9 @@ static const char *strInvalidBpp
 static const char *strInvalidWidth
             = "Wrong value : %d pixels\nESC\\POS requires that width must be a multiple of 8";
 static const char *strSaveDlgTitleLSB
-            = "LSB First Raster";
+            = "Store LSB First Raster";
 static const char *strSaveDlgTitleMSB
-            = "MSB First Raster";
+            = "Store MSB First Raster";
 static const char *strSaveFilterInfoLSB
             = "ESC\\POS Single-Bit Raster LSB First (*.R)";
 static const char *strSaveFilterInfoMSB
@@ -151,6 +153,13 @@ int cb_btnExtractPixels(Ihandle *btn) {
     
     fpBitmap = fopen(strFile, "rb");                    // File mode must be 'READ IN BINARY'
     if (fpBitmap == 0) {
+        dlgMsg = IupMessageDlg();
+        IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
+        IupSetAttribute(dlgMsg, "PARENTDIALOG", ID_DLGMAIN);
+        IupSetAttribute(dlgMsg, atrTitle, "File Error");
+        IupSetfAttribute(dlgMsg, "VALUE", strFileError, strFile);
+        IupPopup(dlgMsg, IUP_CENTER, IUP_CENTER);
+        IupDestroy(dlgMsg);
         goto END;
     }
     
@@ -298,6 +307,7 @@ int cb_btnInvertPixels(Ihandle *ih) {
     if (pCopy == 0) {
         goto END;
     }
+    
     
     // Run a row-swapping algorithm
     

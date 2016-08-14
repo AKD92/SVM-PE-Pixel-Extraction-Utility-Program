@@ -47,7 +47,7 @@ int main(void) {
     IupOpen(0, 0);
         IupSetGlobal("DEFAULTFONT", "System, Bold -10");
         dlgMain = createMainDialog();
-        IupSetAttribute(dlgMain, "RASTERSIZE", "770x515");
+        IupSetAttribute(dlgMain, "RASTERSIZE", "770x540");
         IupShowXY(dlgMain, IUP_CENTER, IUP_CENTER);
         IupMainLoop();
         IupDestroy(dlgMain);

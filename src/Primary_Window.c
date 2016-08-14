@@ -39,6 +39,7 @@ Ihandle *btnExtract, *btnInvert, *btnEraseData;
 Ihandle *lblWidth, *lblHeight, *lblBpp, *lblColor;
 Ihandle *lblCompression, *lblPadByteCount;
 Ihandle *btnStoreMSBFirst, *btnStoreLSBFirst;
+Ihandle *btnAbout;
 
 
 struct DibHeader *pHeader;
@@ -70,7 +71,8 @@ int cb_draw(Ihandle *ih, float posx, float posy);           // Drawing on intern
 Ihandle *createMainDialog(void) {
     
     Ihandle *dlgMain;
-    Ihandle *boxOpen, *boxLowerside, *boxWhole;
+    Ihandle *boxOpen;
+    Ihandle *boxFileOpen, *boxLowerside, *boxWhole;
     Ihandle *frmPreview, *boxPreview;
     Ihandle *frmControls, *boxControls;
     Ihandle *lbl1, *lbl2, *lbl3, *lbl4, *lbl5, *lbl6;
@@ -80,23 +82,32 @@ Ihandle *createMainDialog(void) {
     IupSetAttribute(txtOpen, "EXPAND", "YES");
     IupSetAttribute(txtOpen, "MINSIZE", "x30");
     IupSetAttribute(txtOpen, "MULTILINE", "NO");
-    IupSetAttribute(txtOpen, "READONLY", "YES");
+    IupSetAttribute(txtOpen, "READONLY", "NO");
     
     btnOpen = IupButton("Open...", 0);
     IupSetAttribute(btnOpen, "RASTERSIZE", "100x30");
     IupSetCallback(btnOpen, "ACTION", (Icallback) cb_btnOpen);
     
-    boxOpen = IupVbox(txtOpen, btnOpen, 0);
-    IupSetAttribute(boxOpen, "ALIGNMENT", "ARIGHT");
-    IupSetAttribute(boxOpen, "EXPAND", "HORIZONTAL");
-    IupSetAttribute(boxOpen, "NGAP", "5");
-    IupSetAttribute(boxOpen, "NMARGIN", "0x0");
+    btnAbout = IupButton("About...", 0);
+    IupSetAttribute(btnAbout, "RASTERSIZE", "100x30");
     
-    btnExtract = IupButton("Extract Pixel Array", 0);
+    boxOpen = IupHbox(IupFill(), btnAbout, btnOpen, 0);
+    IupSetAttribute(boxOpen, "ALIGNMENT", "ACENTER");
+    IupSetAttribute(boxOpen, "EXPAND", "HORIZONTAL");
+    IupSetAttribute(boxOpen, "NMARGIN", "0x0");
+    IupSetAttribute(boxOpen, "NGAP", "5");
+    
+    boxFileOpen = IupVbox(txtOpen, boxOpen, 0);
+    IupSetAttribute(boxFileOpen, "ALIGNMENT", "ACENTER");
+    IupSetAttribute(boxFileOpen, "EXPAND", "HORIZONTAL");
+    IupSetAttribute(boxFileOpen, "NGAP", "5");
+    IupSetAttribute(boxFileOpen, "NMARGIN", "0x0");
+    
+    btnExtract = IupButton("Extract Pixel Data", 0);
     IupSetAttribute(btnExtract, "RASTERSIZE", "190x35");
     IupSetCallback(btnExtract, "ACTION", (Icallback) cb_btnExtractPixels);
     
-    btnInvert = IupButton("Invert Pixel Locations", 0);
+    btnInvert = IupButton("Invert Pixel Data", 0);
     IupSetAttribute(btnInvert, "RASTERSIZE", "190x35");
     IupSetCallback(btnInvert, "ACTION", (Icallback) cb_btnInvertPixels);
     
@@ -184,9 +195,9 @@ Ihandle *createMainDialog(void) {
     IupSetAttribute(boxLowerside, "NGAP", "10");
     IupSetAttribute(boxLowerside, "NMARGIN", "0x0");
     
-    boxWhole = IupVbox(boxOpen, boxLowerside, 0);
+    boxWhole = IupVbox(boxFileOpen, boxLowerside, 0);
     IupSetAttribute(boxWhole, "NMARGIN", "10x10");
-    IupSetAttribute(boxWhole, "NGAP", "5");
+    IupSetAttribute(boxWhole, "NGAP", "10");
     IupSetAttribute(boxWhole, "EXPAND", "YES");
     
     dlgMain = IupDialog(boxWhole);
