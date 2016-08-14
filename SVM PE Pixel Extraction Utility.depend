@@ -107,7 +107,7 @@
 
 1469141520 source:c:\users\administrator\mylib\svm pe pixel extraction utility\svm_pe_resource_file.rc
 
-1470238537 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_driver.c
+1471185830 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_driver.c
 	<iup.h>
 	<stdio.h>
 	<stdlib.h>
@@ -136,7 +136,7 @@
 	<stdint.h>
 	"Bitmap_Read_Algorithms.h"
 
-1470242740 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\pixel_operations.c
+1471184636 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\pixel_operations.c
 	<iup.h>
 	<stdio.h>
 	<stdlib.h>
@@ -146,7 +146,7 @@
 
 1470185904 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\svm_pe_resource_file.rc
 
-1470239259 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\primary_window.c
+1471185491 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\primary_window.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -163,4 +163,21 @@
 1406728920 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\cd-5.9_win32_mingw4_lib\include\cddbuf.h
 
 1470238500 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\res\svm_pe_resource_file.rc
+
+1470242740 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_utilities.c
+	<string.h>
+
+1448885964 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\iup-3.17_win32_mingw4_lib\include\iup.h
+	"iupkey.h"
+	"iupdef.h"
+
+1437855078 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\iup-3.17_win32_mingw4_lib\include\iupkey.h
+
+1437855078 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\iup-3.17_win32_mingw4_lib\include\iupdef.h
+
+1442311624 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\cd-5.9_win32_mingw4_lib\include\cd.h
+
+1406728920 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\cd-5.9_win32_mingw4_lib\include\cdiup.h
+
+1406728920 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\cd-5.9_win32_mingw4_lib\include\cddbuf.h
 

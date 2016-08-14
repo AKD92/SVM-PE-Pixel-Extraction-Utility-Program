@@ -6,18 +6,18 @@
 		<Option pch_mode="2" />
 		<Option compiler="tdm_gcc_32bit_compiler" />
 		<Build>
-			<Target title="TDM GCC 32-bit">
+			<Target title="Release 32-bit">
 				<Option platforms="Windows;" />
-				<Option output="bin/TDM GCC 32-bit/SVM_PE_UTIL.EXE" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="bin/TDM GCC 32-bit" />
-				<Option object_output="obj/TDM GCC 32-bit/" />
+				<Option output="bin/Release 32-bit/svm_pe_x86.exe" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="bin/Release 32-bit" />
+				<Option object_output="obj/Release 32-bit/" />
 				<Option type="0" />
 				<Option compiler="tdm_gcc_32bit_compiler" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-std=c99" />
-					<Add directory="lib/iup-3.17_Win32_mingw4_lib/include" />
-					<Add directory="lib/cd-5.9_Win32_mingw4_lib/include" />
+					<Add directory="../_libraries/Iup_MinGW_Libs/iup-3.17_Win32_mingw4_lib/include" />
+					<Add directory="../_libraries/Iup_MinGW_Libs/cd-5.9_Win32_mingw4_lib/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,38 +32,8 @@
 					<Add library="cd" />
 					<Add library="freetype6" />
 					<Add library="z" />
-					<Add directory="lib/iup-3.17_Win32_mingw4_lib" />
-					<Add directory="lib/cd-5.9_Win32_mingw4_lib" />
-				</Linker>
-			</Target>
-			<Target title="MinGW GCC">
-				<Option platforms="Windows;" />
-				<Option output="bin/MinGW GCC/SVM_PE_UTIL.EXE" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="bin/MinGW GCC" />
-				<Option object_output="obj/MinGW GCC/" />
-				<Option type="0" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-Wall" />
-					<Add option="-std=c99" />
-					<Add directory="lib/iup-3.17_Win32_mingw4_lib/include" />
-					<Add directory="lib/cd-5.9_Win32_mingw4_lib/include" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add library="iup" />
-					<Add library="gdi32" />
-					<Add library="comdlg32" />
-					<Add library="comctl32" />
-					<Add library="uuid" />
-					<Add library="oleaut32" />
-					<Add library="ole32" />
-					<Add library="iupcd" />
-					<Add library="cd" />
-					<Add library="freetype6" />
-					<Add library="z" />
-					<Add directory="lib/iup-3.17_Win32_mingw4_lib" />
-					<Add directory="lib/cd-5.9_Win32_mingw4_lib" />
+					<Add directory="../_libraries/Iup_MinGW_Libs/iup-3.17_Win32_mingw4_lib" />
+					<Add directory="../_libraries/Iup_MinGW_Libs/cd-5.9_Win32_mingw4_lib" />
 				</Linker>
 			</Target>
 		</Build>
