@@ -19,7 +19,7 @@ The single-bit raster image produced by SVM PE is generally <b>row-ordered</b>. 
 inside the produced image are arranged in rows.<br>So to print this raster image by Thermal POS printers,
 the <b>most suitable ESC\POS</b> command would be:
 <br><br><b>GS v 0 m xL xH yL yH d1...dk</b>
-<br>where <b>k = (xL + xH * 256) + (yL + yH * 256)</b>
+<br>where <b>k = (xL + xH * 256) * (yL + yH * 256)</b>
 <br>with the condition <b>k > 0</b> must hold
 </p>
 
