@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 <h1>
 <img src="res/SVM_PE_WALL.jpg" alt="SVM PE" align="left">
 SVM PE Pixel Extraction Utility Program
