@@ -58,3 +58,5 @@ Bitmap Header Structure @ MSDN Developer Resource</a>
 
 <h3>License</h3>
 <a rel="license" href="http://www.gnu.org/licenses/gpl-3.0-standalone.html"><img alt="GPLv3 License" style="border-width:0" src="http://www.gnu.org/graphics/gplv3-127x51.png" /></a><br />This software is licensed under <a rel="license" href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU General Public License, Version 3</a>.
+
+<div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="horizontal" data-theme="dark" data-vanity="ashis-kr-das-3a1093113"><a class="LI-simple-link" href='https://bd.linkedin.com/in/ashis-kr-das-3a1093113?trk=profile-badge'>Ashis Kr. Das</a></div>
