@@ -26,7 +26,7 @@ the <b>most suitable ESC\POS</b> command would be:
 <h3>Download</h3>
 <ul>
 <li><b>
-<a href="https://github.com/AKD92/SVM-PE-Pixel-Extraction-Utility-Program/raw/master/bin/svm_pe_x86.exe">
+<a href="https://github.com/AKD92/SVM-PE-Pixel-Extraction-Utility-Program/raw/master/bin/svm_pe_x86.exe" download>
 Standalone Executable (Win32)</a>
 <br>Compiled using <a href="http://tdm-gcc.tdragon.net/about">TDM-GCC 5.1</a>
 </b></li>
@@ -41,7 +41,7 @@ Standalone Executable (Win32)</a>
 <h3>Related Links</h3>
 <ol>
 <li><b>
-<a href="http://content.epson.de/fileadmin/content/files/RSD/downloads/escpos.pdf">
+<a href="http://content.epson.de/fileadmin/content/files/RSD/downloads/escpos.pdf" download>
 ESC\POS Specification @ Epson</a>
 </b></li>
 <li><b>
