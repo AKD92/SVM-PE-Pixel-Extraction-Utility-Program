@@ -1,5 +1,6 @@
 
 
+
 /****************************************************************************************
     Implementation of various GUI Callback Functions for working with Pixel Arrays
     Author:             Ashis Kumar Das
@@ -16,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <inttypes.h>
 #include "Bitmap_Read_Algorithms.h"
 
@@ -45,7 +47,7 @@ extern Ihandle *btnStoreMSBFirst;
 
 
 // Utility function prototypes
-void util_tryIncludeExtension(char *strFile, const char *strExtension);
+void util_tryIncludeExtension(char *strFile, const char *strExtension, int fileExist);
 unsigned char util_pack8ByteMSBFirst(unsigned char *pByteArray, unsigned int startPosition);
 unsigned char util_pack8ByteLSBFirst(unsigned char *pByteArray, unsigned int startPosition);
 
@@ -68,25 +70,25 @@ static const char *frmt3 = "%" PRIu64;
 static const char *frmt4 = "%d (RLE)";
 static const char *frmt5 = "%u bits";
 static const char *strFileError
-            = "File does not exist or invalid file address\n\n%s";
+            = "Error: %d\n%s\n\n%s";
 static const char *strHeaderError
             = "This is not a bitmap image file at all\n\n%s";
 static const char *strOpenFilter
             = "1 bitPerPixel Monochrome Bitmaps (*.BMP)|*.bmp|All Files (*.*)|*.*|";
 static const char *strInvalidBpp
-            = "Wrong value : %d bpp\nThis is not a valid 1 bpp Monochrome Bitmap Image";
+            = "Wrong value : %d bpp\n\nThis is not a valid 1 bpp Monochrome Bitmap Image";
 static const char *strInvalidWidth
-            = "Wrong value : %d pixels\nESC\\POS requires that width must be a multiple of 8";
+            = "Wrong value : %d pixels\n\nESC\\POS requires that Bitmap Width must be a multiple of 8";
 static const char *strSaveDlgTitleLSB
-            = "Store LSB First Raster";
+            = "Store Raster (LSB First)";
 static const char *strSaveDlgTitleMSB
-            = "Store MSB First Raster";
+            = "Store Raster (MSB First)";
 static const char *strSaveFilterInfoLSB
             = "ESC\\POS Single-Bit Raster LSB First (*.R)";
 static const char *strSaveFilterInfoMSB
             = "ESC\\POS Single-Bit Raster MSB First (*.R)";
 static const char *strFileWriteError
-            = "An error occured while attempting to write to the file:\n\n%s";
+            = "An error occured while attempting to write:\nError: %d\n%s\n\n%s";
 
 
 
@@ -156,8 +158,8 @@ int cb_btnExtractPixels(Ihandle *btn) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
         IupSetAttribute(dlgMsg, "PARENTDIALOG", ID_DLGMAIN);
-        IupSetAttribute(dlgMsg, atrTitle, "File Error");
-        IupSetfAttribute(dlgMsg, "VALUE", strFileError, strFile);
+        IupSetAttribute(dlgMsg, atrTitle, "Open Error");
+        IupSetfAttribute(dlgMsg, "VALUE", strFileError, errno, strerror(errno), strFile);
         IupPopup(dlgMsg, IUP_CENTER, IUP_CENTER);
         IupDestroy(dlgMsg);
         goto END;
@@ -360,6 +362,8 @@ int cb_btnEraseData(Ihandle *btn) {
 
 int cb_btnStoreBitRaster(Ihandle *btn) {
     
+    unsigned int imgWidth, imgHeight;
+    unsigned char xL, xH, yL, yH;
     FILE *fpRaster;
     Ihandle *dlgFile, *dlgMsg;
     char *strFile;
@@ -379,6 +383,7 @@ int cb_btnStoreBitRaster(Ihandle *btn) {
     if (pHeader == 0 || pPixelArray == 0) {
         goto END;
     }
+    
     if (pHeader->imgWidth % 8 != 0) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
@@ -389,6 +394,9 @@ int cb_btnStoreBitRaster(Ihandle *btn) {
         IupDestroy(dlgMsg);
         goto END;
     }
+    
+    imgWidth = (unsigned int) pHeader->imgWidth;
+    imgHeight = (unsigned int) pHeader->imgHeight;
     
     if (btn == btnStoreLSBFirst) {
         strTitle = strSaveDlgTitleLSB;
@@ -419,7 +427,7 @@ int cb_btnStoreBitRaster(Ihandle *btn) {
         strSelection = IupGetAttribute(dlgFile, "VALUE");
         strFile = (char *) malloc(strlen(strSelection) + 1 + 3);
         strcpy(strFile, strSelection);
-        util_tryIncludeExtension(strFile, "R");
+        util_tryIncludeExtension(strFile, "R", dlgStatus);
     }
     else {
         goto END;
@@ -431,8 +439,8 @@ int cb_btnStoreBitRaster(Ihandle *btn) {
         dlgMsg = IupMessageDlg();
         IupSetAttribute(dlgMsg, "DIALOGTYPE", "ERROR");
         IupSetAttribute(dlgMsg, "PARENTDIALOG", ID_DLGMAIN);
-        IupSetAttribute(dlgMsg, "TITLE", "File Error");
-        IupSetfAttribute(dlgMsg, "VALUE", strFileWriteError, strFile);
+        IupSetAttribute(dlgMsg, "TITLE", "Write Error");
+        IupSetfAttribute(dlgMsg, "VALUE", strFileWriteError, errno, strerror(errno), strFile);
         IupPopup(dlgMsg, IUP_CENTER, IUP_CENTER);
         IupDestroy(dlgMsg);
         goto END;
@@ -446,15 +454,31 @@ int cb_btnStoreBitRaster(Ihandle *btn) {
     // Write each packed byte to the output file ONE BY ONE
     // 8 Pixels = 8 bit value (1 byte)
     
+    
+    // Write image size information to the raster file
+    
+    xL = (imgWidth / 8) % 256;
+    xH = (imgWidth / 8) / 256;
+    yL = imgHeight % 256;
+    yH = imgHeight / 256;
+    
+    fwrite((const void *) &xL, 1, 1, fpRaster);
+    fwrite((const void *) &xH, 1, 1, fpRaster);
+    fwrite((const void *) &yL, 1, 1, fpRaster);
+    fwrite((const void *) &yH, 1, 1, fpRaster);
+    
+    // Write bitmap pixels as packed single-bit raster
+    
     index = 0;
-    byteCount = (unsigned int) ((pHeader->imgWidth / 8) * pHeader->imgHeight);
+    byteCount = (imgWidth / 8) * imgHeight;
     while (index < byteCount) {
         packByte = packAlgorithm(pPixelArray, index * 8);               // Pack 8 bits into a single byte
-        fwrite((const void *) &packByte, 1, 1, fpRaster);               // Write packed byte to file
+        fwrite((const void *) &packByte, 1, 1, fpRaster);               // Write packed byte to raster file
         index = index + 1;
     }
     fflush(fpRaster);
     fclose(fpRaster);
+    
     
     // Conversion complete
     

@@ -1,5 +1,6 @@
 
 
+
 /****************************************************************************************
     Implementation of Pixel Extraction Algorithms from Monochrome Bitmaps (1 bpp)
     Author:             Ashis Kumar Das

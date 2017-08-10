@@ -1,5 +1,6 @@
 
 
+
 /****************************************************************************************
     Implementation of Bit-Packing Algorithms and other Utility Functions
     Author:             Ashis Kumar Das
@@ -22,7 +23,7 @@
 
 // Definitions Bit-Packing Algorithms
 
-void util_tryIncludeExtension(char *strFile, const char *strExtension);
+void util_tryIncludeExtension(char *strFile, const char *strExtension, int fileExist);
 
 unsigned char util_pack8ByteMSBFirst(unsigned char *pByteArray, unsigned int startPosition);
 
@@ -35,13 +36,16 @@ unsigned char util_pack8ByteLSBFirst(unsigned char *pByteArray, unsigned int sta
 
 
 
-void util_tryIncludeExtension(char *strFile, const char *strExtension) {
+void util_tryIncludeExtension(char *strFile, const char *strExtension, int fileExist) {
     
     unsigned int index;
     char cFile, cExten;
     unsigned int extenLen, fileLen;
     
     if (strFile == 0 || strExtension == 0) {
+        goto END;
+    }
+    if (fileExist == 0) {                       // Normal file, existing file
         goto END;
     }
     
@@ -51,18 +55,31 @@ void util_tryIncludeExtension(char *strFile, const char *strExtension) {
     if (extenLen == 0) {
         goto END;
     }
-    if (fileLen < extenLen) {
+    
+    // Check file address length against desired extension length
+    if (fileLen < extenLen + 1) {
         goto ADD_EXTENSION;
     }
-    
-    for (index = 1; index <= extenLen; index++) {
-        cFile = *(strFile + fileLen - index);
-        cExten = *(strExtension + extenLen - index);
-        if (cFile != cExten) {
-            goto ADD_EXTENSION;
+    else {
+		
+        // File address length >= extension length
+        // Now check if the present extension matches to the desired extension or not
+		
+        for (index = 1; index <= extenLen; index++) {
+            cFile = *(strFile + fileLen - index);
+            cExten = *(strExtension + extenLen - index);
+            if (cFile != cExten) {
+                goto ADD_EXTENSION;
+            }
+            if (index == extenLen && index - 1 <= fileLen) {
+                cFile = *(strFile + fileLen - index - 1);
+                if (cFile != '.') {
+                    goto ADD_EXTENSION;
+                }
+            }
         }
+        goto END;
     }
-    goto END;
     
     ADD_EXTENSION:
     strcat(strFile, ".");

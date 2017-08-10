@@ -1,5 +1,6 @@
 
 
+
 /****************************************************************************************
     Implementation of Primary Window GUI Interface of SVM Pixel Extraction Utility
     Author:             Ashis Kumar Das
@@ -50,7 +51,7 @@ static const char *strTitle = "Pixel Extraction Utility (The SVM Project)";
 
 
 
-
+int cb_ShowAboutWindow(void);
 Ihandle * createMainDialog(void);
 
 int cb_btnOpen(Ihandle *ih);
@@ -90,6 +91,7 @@ Ihandle *createMainDialog(void) {
     
     btnAbout = IupButton("About...", 0);
     IupSetAttribute(btnAbout, "RASTERSIZE", "100x30");
+    IupSetCallback(btnAbout, "ACTION", (Icallback) cb_ShowAboutWindow);
     
     boxOpen = IupHbox(IupFill(), btnAbout, btnOpen, 0);
     IupSetAttribute(boxOpen, "ALIGNMENT", "ACENTER");
