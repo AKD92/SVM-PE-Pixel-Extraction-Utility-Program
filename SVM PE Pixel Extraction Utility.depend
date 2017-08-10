@@ -107,7 +107,7 @@
 
 1469141520 source:c:\users\administrator\mylib\svm pe pixel extraction utility\svm_pe_resource_file.rc
 
-1471185830 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_driver.c
+1471203561 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_driver.c
 	<iup.h>
 	<stdio.h>
 	<stdlib.h>
@@ -121,14 +121,14 @@
 
 1437855078 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\lib\iup-3.17_win32_mingw4_lib\include\iupdef.h
 
-1470241547 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\bitmap_read_algorithms.h
+1471203561 g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\bitmap_read_algorithms.h
 	<stdio.h>
 	<stdint.h>
 
 1470242740 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_utilites.c
 	<string.h>
 
-1470237381 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\bitmap_read_algorithms.c
+1471203561 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\bitmap_read_algorithms.c
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
@@ -136,17 +136,18 @@
 	<stdint.h>
 	"Bitmap_Read_Algorithms.h"
 
-1471184636 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\pixel_operations.c
+1471311714 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\pixel_operations.c
 	<iup.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<errno.h>
 	<inttypes.h>
 	"Bitmap_Read_Algorithms.h"
 
 1470185904 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\svm_pe_resource_file.rc
 
-1471185491 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\primary_window.c
+1471462530 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\primary_window.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -164,7 +165,7 @@
 
 1470238500 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\res\svm_pe_resource_file.rc
 
-1470242740 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_utilities.c
+1471224398 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\svm_pe_utilities.c
 	<string.h>
 
 1448885964 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\iup-3.17_win32_mingw4_lib\include\iup.h
@@ -180,4 +181,8 @@
 1406728920 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\cd-5.9_win32_mingw4_lib\include\cdiup.h
 
 1406728920 g:\ashish files\documents\dev c++ project files\_libraries\iup_mingw_libs\cd-5.9_win32_mingw4_lib\include\cddbuf.h
+
+1471462514 source:g:\ashish files\documents\dev c++ project files\svm pe pixel extraction utility (win32)\src\about_window.c
+	<iup.h>
+	<stdlib.h>
 

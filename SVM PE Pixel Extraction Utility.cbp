@@ -40,6 +40,9 @@
 		<Unit filename="res/SVM_PE_Resource_File.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="src/About_Window.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/Bitmap_Read_Algorithms.c">
 			<Option compilerVar="CC" />
 		</Unit>
